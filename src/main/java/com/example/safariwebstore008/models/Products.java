@@ -1,8 +1,16 @@
 package com.example.safariwebstore008.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Products {
     @Id
@@ -14,8 +22,6 @@ public class Products {
     private Favourites favourites;
     @OneToMany
     private List<Colors>listOfProductColors;
-    private  Enum  size;
-
 
 
 }

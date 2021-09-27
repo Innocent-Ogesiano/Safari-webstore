@@ -10,6 +10,6 @@ public class DeliveryMethod {
     private Long id;
     private  String deliveryMethod;
 
-//    @OneToOne(mappedBy = "deliveryMethod")
-//    private  Order order;
+    @OneToOne(mappedBy = "deliveryMethod")
+    private  Customerord orders;
 }

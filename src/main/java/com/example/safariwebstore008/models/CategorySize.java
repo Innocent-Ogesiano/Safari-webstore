@@ -5,17 +5,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class ProductCategory {
+@Table(name = "category_size_table")
+public class CategorySize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    private  String productCategoryName;
+
+    @Null(message = "size field is empty")
+    private String size;
+
+
     @ManyToOne
-    private  Products product;
+    private  ProductCategory category;
+
+
+
+
 }

@@ -8,21 +8,25 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "wallet_table")
 @Entity
-public class AdminAccountDetails {
+public class Wallet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
-    private  String bankName;
-    private  String accountType;
-    private  String accountNumber;
+
+    @OneToOne(mappedBy = "customerWallet")
+    private  Customer customer;
+
+    private Double walletBalance;
+
     @CreationTimestamp
     private LocalDateTime createDate;
     @UpdateTimestamp
