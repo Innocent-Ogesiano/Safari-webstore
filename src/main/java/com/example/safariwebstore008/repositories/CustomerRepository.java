@@ -1,10 +1,11 @@
 package com.example.safariwebstore008.repositories;
 
+import com.example.safariwebstore008.models.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
-@NoRepositoryBean
-public interface UserRepository extends JpaRepository<User,Long> {
+@Repository
+public interface CustomerRepository extends JpaRepository<Customer,Long> {
+    Customer findCustomerByEmail(String email);
 }
