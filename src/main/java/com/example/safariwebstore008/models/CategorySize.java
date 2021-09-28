@@ -1,5 +1,6 @@
 package com.example.safariwebstore008.models;
 
+import com.example.safariwebstore008.common.BaseClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,11 +14,7 @@ import javax.validation.constraints.Null;
 @NoArgsConstructor
 @Entity
 @Table(name = "category_size_table")
-public class CategorySize {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class CategorySize extends BaseClass {
 
     @Null(message = "size field is empty")
     private String size;

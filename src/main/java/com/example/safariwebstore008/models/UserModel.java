@@ -1,4 +1,5 @@
 package com.example.safariwebstore008.models;
+import com.example.safariwebstore008.common.BaseClass;
 import com.example.safariwebstore008.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,13 +19,8 @@ import java.util.Date;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @MappedSuperclass
-public abstract class UserModel {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private  Long id;
+public abstract class UserModel extends BaseClass {
 
     @Null(message = "first-name field is empty")
     private String firstName;
@@ -44,8 +40,10 @@ public abstract class UserModel {
     private Gender gender;
 
 
-    @CreationTimestamp
-    private LocalDateTime createDate;
-    @UpdateTimestamp
-    private LocalDateTime updateDate;
+    public UserModel(Long id) {
+        super(id);
     }
+    public UserModel(){
+
+    }
+}

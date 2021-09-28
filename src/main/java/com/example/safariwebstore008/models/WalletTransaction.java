@@ -1,5 +1,6 @@
 package com.example.safariwebstore008.models;
 
+import com.example.safariwebstore008.common.BaseClass;
 import com.example.safariwebstore008.enums.TransactionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,18 +16,16 @@ import java.util.Date;
 @NoArgsConstructor
 @Table(name = "wallet_transaction_table")
 @Entity
-public class WalletTransaction {
+public class WalletTransaction extends BaseClass {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+
 
     @DateTimeFormat(pattern = "dd/mm/yyyy")
     @Null(message = "transaction date field is empty")
     private Date transactionDate;
 
     private TransactionType transactionType;
+
     @Null(message = "amount field is empty")
     private Double amount;
 

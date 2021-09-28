@@ -1,5 +1,6 @@
 package com.example.safariwebstore008.models;
 
+import com.example.safariwebstore008.common.BaseClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,15 +15,12 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "state_table")
 @Entity
-public class State_Pronvices {
+public class State_Pronvices extends BaseClass {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
 
     @Null(message = "state field is empty")
     private  String stateName;
+
     @OneToMany
     private List<Cities>listOfCitiesInAState;
     @OneToOne(mappedBy = "coverage")

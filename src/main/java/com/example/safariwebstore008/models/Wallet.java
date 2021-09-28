@@ -1,5 +1,6 @@
 package com.example.safariwebstore008.models;
 
+import com.example.safariwebstore008.common.BaseClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,18 +18,13 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "wallet_table")
 @Entity
-public class Wallet {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Wallet extends BaseClass {
+
 
     @OneToOne(mappedBy = "customerWallet")
     private  Customer customer;
 
     private Double walletBalance;
 
-    @CreationTimestamp
-    private LocalDateTime createDate;
-    @UpdateTimestamp
-    private LocalDateTime updateDate;
+
 }

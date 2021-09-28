@@ -1,5 +1,6 @@
 package com.example.safariwebstore008.models;
 
+import com.example.safariwebstore008.common.BaseClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,11 +13,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "cart_table")
 @Entity
-public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+public class Cart extends BaseClass {
+
     @ManyToOne
     private  Products product;
     private  Double price;

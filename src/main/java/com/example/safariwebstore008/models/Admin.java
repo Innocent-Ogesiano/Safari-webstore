@@ -20,11 +20,10 @@ import java.util.List;
 @Entity
 @Table(name = "admin_table")
 public class Admin extends UserModel {
-    public Admin(Long id, String firstName, String lastName, Date dateOfBirth, String email,
-                 Gender gender, LocalDateTime createDate, LocalDateTime updateDate) {
-        super(id, firstName, lastName, dateOfBirth, email, gender, createDate, updateDate);
+    public Admin(String firstName, String lastName,
+                 Date dateOfBirth, String email, Gender gender) {
+        super(firstName, lastName, dateOfBirth, email, gender);
     }
-
     public Admin() {
     }
     @OneToMany
