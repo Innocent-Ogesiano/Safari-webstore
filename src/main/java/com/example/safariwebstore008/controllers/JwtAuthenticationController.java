@@ -3,6 +3,8 @@ package com.example.safariwebstore008.controllers;
 import com.example.safariwebstore008.configurations.JwtTokenUtil;
 import com.example.safariwebstore008.dto.JwtRequest;
 import com.example.safariwebstore008.dto.JwtResponse;
+import com.example.safariwebstore008.dto.RegistrationDto;
+import com.example.safariwebstore008.services.servicesImpl.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +23,7 @@ public class JwtAuthenticationController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
-    private UserDetailsService userDetailsService;
+    private JwtUserDetailsService userDetailsService;
 
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
@@ -35,15 +37,11 @@ public class JwtAuthenticationController {
 
         return ResponseEntity.ok(new JwtResponse(token));
     }
-    @GetMapping("/greeting")
-    public String greet(){
-        return "Hello world";
-    }
 
-//    @RequestMapping(value = "/register", method = RequestMethod.POST)
-//    public ResponseEntity<?> saveUser(@RequestBody UserDto user) throws Exception {
-//        return ResponseEntity.ok(userDetailsService.save(user));
-//    }
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<?> saveUser(@RequestBody RegistrationDto user) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(user));
+    }
     private void authenticate(String userEmail, String password) throws Exception {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userEmail, password));
@@ -53,4 +51,5 @@ public class JwtAuthenticationController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+
 }

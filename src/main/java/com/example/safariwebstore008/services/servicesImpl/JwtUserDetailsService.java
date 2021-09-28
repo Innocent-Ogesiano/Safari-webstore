@@ -1,5 +1,6 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
+import com.example.safariwebstore008.dto.RegistrationDto;
 import com.example.safariwebstore008.models.Admin;
 import com.example.safariwebstore008.models.Customer;
 import com.example.safariwebstore008.repositories.AdminRepository;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class JwtUserDetailsService implements UserDetailsService {
     private AdminRepository adminRepository;
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         Admin admin = adminRepository.findUserByEmail(userEmail);
@@ -34,5 +38,12 @@ public class JwtUserDetailsService implements UserDetailsService {
         }else{
             throw new UsernameNotFoundException("User not Found");
         }
+    }
+
+    public Admin save(RegistrationDto user) {
+        Admin newUser = new Admin();
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+        return adminRepository.save(newUser);
     }
 }
