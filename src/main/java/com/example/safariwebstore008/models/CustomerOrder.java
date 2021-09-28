@@ -1,7 +1,8 @@
-git package com.example.safariwebstore008.models;
-
+package com.example.safariwebstore008.models;
 import com.example.safariwebstore008.common.BaseClass;
 import com.example.safariwebstore008.enums.DeliveryStatus;
+import com.example.safariwebstore008.models.DeliveryMethod;
+import com.example.safariwebstore008.models.OrderDetails;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
