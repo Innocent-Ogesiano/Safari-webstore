@@ -28,7 +28,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     private PasswordEncoder bcryptEncoder;
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        Admin admin = adminRepository.findUserByEmail(userEmail);
+        Admin admin = adminRepository.findAdminByEmail(userEmail);
         Customer customer= customerRepository.findCustomerByEmail(userEmail);
         if(admin!=null){
             return new User(admin.getEmail(), admin.getPassword(), new ArrayList<>());
