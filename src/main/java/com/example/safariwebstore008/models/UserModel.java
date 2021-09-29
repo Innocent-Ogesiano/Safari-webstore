@@ -10,10 +10,12 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @Data
-public abstract class User {
+public abstract class UserModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String email;
     private String password;
+    private Boolean isEnabled;
+
 }

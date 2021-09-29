@@ -6,5 +6,5 @@ import javax.persistence.Entity;
 
 @Entity
 @Data
-public class Customer extends User{
+public class Customer extends UserModel {
 }
