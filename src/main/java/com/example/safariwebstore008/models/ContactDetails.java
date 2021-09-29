@@ -4,13 +4,10 @@ import com.example.safariwebstore008.common.BaseClass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Null;
-import java.time.LocalDateTime;
 
 
 @Data
@@ -33,5 +30,5 @@ public class ContactDetails extends BaseClass {
     private  String phoneNumber;
 
     @ManyToOne
-    private State_Pronvices listOfState;
+    private StatePronvices listOfState;
 }

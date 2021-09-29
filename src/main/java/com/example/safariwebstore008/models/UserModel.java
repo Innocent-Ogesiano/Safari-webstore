@@ -1,6 +1,7 @@
 package com.example.safariwebstore008.models;
 import com.example.safariwebstore008.common.BaseClass;
 import com.example.safariwebstore008.enums.Gender;
+import com.example.safariwebstore008.enums.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,10 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
@@ -37,8 +35,10 @@ public abstract class UserModel extends BaseClass {
     private  String email;
 
     @Null(message = "gender field is empty")
+    @Enumerated(EnumType.STRING)
     private Gender gender;
-
+    @Enumerated(EnumType.STRING)
+    private Roles roles;
 
     public UserModel(Long id) {
         super(id);

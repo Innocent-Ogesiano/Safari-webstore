@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "state_table")
 @Entity
-public class State_Pronvices extends BaseClass {
+public class StatePronvices extends BaseClass {
 
 
     @Null(message = "state field is empty")
@@ -23,6 +23,7 @@ public class State_Pronvices extends BaseClass {
 
     @OneToMany
     private List<Cities>listOfCitiesInAState;
+
     @OneToOne(mappedBy = "coverage")
     private DispatchRider dispatchRider;
 }

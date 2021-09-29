@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 
 
 @Data
@@ -13,8 +14,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class Colors extends BaseClass {
-
-
-    private Long id;
+    @Null(message = "color field is empty")
     private  String color;
 }

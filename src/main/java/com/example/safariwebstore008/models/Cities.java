@@ -16,8 +16,6 @@ import javax.validation.constraints.Null;
 @Table(name = "cities_lga_table")
 @Entity
 public class Cities extends BaseClass {
-
-
     @Null(message = "city-name field is empty")
     private  String cityName;
 }

@@ -19,7 +19,6 @@ public class CategorySize extends BaseClass {
     @Null(message = "size field is empty")
     private String size;
 
-
     @ManyToOne
     private  ProductCategory category;
 

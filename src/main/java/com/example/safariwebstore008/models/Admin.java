@@ -6,9 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Null;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -21,13 +19,14 @@ import java.util.List;
 @Table(name = "admin_table")
 public class Admin extends UserModel {
     public Admin(String firstName, String lastName,
-                 Date dateOfBirth, String email, Gender gender) {
-        super(firstName, lastName, dateOfBirth, email, gender);
+                 Date dateOfBirth, String email, Gender gender,Roles roles) {
+        super(firstName, lastName, dateOfBirth, email, gender,roles);
     }
     public Admin() {
     }
+
     @OneToMany
     private List<AdminAccountDetails>listOfAdminAccounts;
-@Null(message = "role field is empty or null")
- private Roles roles;
+
+
 }

@@ -17,8 +17,11 @@ public class Cart extends BaseClass {
 
     @ManyToOne
     private  Products product;
+
     private  Double price;
+
     private  Integer quantity;
+
     @ManyToOne
     private  Customer customer;
 
