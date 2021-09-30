@@ -2,8 +2,6 @@ package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.MyUserDetails;
 import com.example.safariwebstore008.exceptions.AccountNotEnabledException;
-import com.example.safariwebstore008.models.Admin;
-import com.example.safariwebstore008.models.Customer;
 import com.example.safariwebstore008.repositories.AdminRepository;
 import com.example.safariwebstore008.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
