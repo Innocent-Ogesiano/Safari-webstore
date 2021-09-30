@@ -40,6 +40,9 @@ public abstract class UserModel extends BaseClass {
     @Enumerated(EnumType.STRING)
     private Roles roles;
 
+    private String password;
+    private Boolean isEnabled;
+
     public UserModel(Long id) {
         super(id);
     }
