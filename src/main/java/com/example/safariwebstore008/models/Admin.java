@@ -19,8 +19,13 @@ import java.util.List;
 @Table(name = "admin_table")
 public class Admin extends UserModel {
     public Admin(String firstName, String lastName,
-                 Date dateOfBirth, String email, Gender gender,Roles roles,String password) {
-        super(firstName, lastName, dateOfBirth, email, gender,roles,password);
+// <<<<<<< Data_Base_Model
+//                  Date dateOfBirth, String email, Gender gender,Roles roles,String password) {
+//         super(firstName, lastName, dateOfBirth, email, gender,roles,password);
+// =======
+                 Date dateOfBirth, String email, Gender gender,Roles roles,String password,Boolean isEnabled) {
+        super(firstName, lastName, dateOfBirth, email, gender,roles,password,isEnabled);
+// >>>>>>> main
     }
     public Admin() {
     }

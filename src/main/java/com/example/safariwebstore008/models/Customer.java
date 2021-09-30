@@ -14,8 +14,8 @@ import java.util.List;
 @Table(name = "customer_details_table")
 public class Customer extends UserModel{
     public Customer(String firstName, String lastName, Date dateOfBirth, String email,
-                    Gender gender, Roles roles,String password) {
-        super(firstName, lastName, dateOfBirth, email, gender,roles,password);
+                    Gender gender, Roles roles,String password,Boolean isEnbaled) {
+        super(firstName, lastName, dateOfBirth, email, gender,roles,password,isEnbaled);
     }
 
     public Customer() {

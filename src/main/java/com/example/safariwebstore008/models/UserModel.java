@@ -44,6 +44,9 @@ public abstract class UserModel extends BaseClass {
     @Size(min = 8,message = "The password character is less than 8")
     private String password;
 
+    private String password;
+    private Boolean isEnabled;
+
     public UserModel(Long id) {
         super(id);
     }

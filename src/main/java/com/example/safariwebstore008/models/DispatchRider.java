@@ -14,8 +14,8 @@ import java.util.List;
 @Entity
 public class DispatchRider extends UserModel{
     public DispatchRider( String firstName, String lastName, Date dateOfBirth,
-                          String email, Gender gender,Roles roles,String password) {
-        super (firstName, lastName, dateOfBirth, email, gender,roles,password);
+                         String email, Gender gender,Roles roles,String password,Boolean isEnabled) {
+        super (firstName, lastName, dateOfBirth, email, gender,roles,password,isEnabled);
     }
     public DispatchRider() {
     }
