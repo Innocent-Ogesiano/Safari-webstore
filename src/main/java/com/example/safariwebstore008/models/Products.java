@@ -17,10 +17,10 @@ import java.util.List;
 @Table(name = "products_table")
 public class Products  extends BaseClass {
 
-     @Null(message = "Description field is empty")
+    @Null(message = "Description field is empty")
     private String description;
 
-     @Null(message = "product price field is empty")
+    @Null(message = "product price field is empty")
     private Double price;
 
     @OneToOne(mappedBy = "products")
