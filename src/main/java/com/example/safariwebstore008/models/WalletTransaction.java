@@ -23,7 +23,7 @@ public class WalletTransaction extends BaseClass {
     @DateTimeFormat(pattern = "dd/mm/yyyy")
     @Null(message = "transaction date field is empty")
     private Date transactionDate;
- @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 
     @Null(message = "amount field is empty")
