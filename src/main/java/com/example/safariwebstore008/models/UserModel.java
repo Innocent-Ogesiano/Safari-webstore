@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -39,6 +40,9 @@ public abstract class UserModel extends BaseClass {
     private Gender gender;
     @Enumerated(EnumType.STRING)
     private Roles roles;
+    @Null(message = "password field is empty")
+    @Size(min = 8,message = "The password character is less than 8")
+    private String password;
 
     public UserModel(Long id) {
         super(id);
