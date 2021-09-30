@@ -1,0 +1,8 @@
+build:
+  docker build -t hairx/hairx-builder:latest --cache-from hairx/hairx-builder:latest . -f Dockerfile-dep
+
+dev: build
+  docker-compose -f docker-compose-dev.yml up --build
+
+prod: build
+  docker-compose up --build
