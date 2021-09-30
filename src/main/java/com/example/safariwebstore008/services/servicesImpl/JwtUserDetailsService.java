@@ -2,6 +2,8 @@ package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.MyUserDetails;
 import com.example.safariwebstore008.exceptions.AccountNotEnabledException;
+import com.example.safariwebstore008.models.Admin;
+import com.example.safariwebstore008.models.Customer;
 import com.example.safariwebstore008.repositories.AdminRepository;
 import com.example.safariwebstore008.repositories.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +29,13 @@ public class JwtUserDetailsService implements UserDetailsService {
         Admin admin = adminRepository.findAdminByEmail(userEmail);
         Customer customer= customerRepository.findCustomerByEmail(userEmail);
         if(admin!=null){
-            if(admin.getIsEnabled()==true){
+            if(admin.getIsEnabled()){
             return new MyUserDetails(admin.getEmail(), admin.getPassword(), admin.getIsEnabled(), new ArrayList<>());
             }
             throw new AccountNotEnabledException("Account is disabled");
         }
         else if(customer!=null){
-            if(customer.getIsEnabled()==true){
+            if(customer.getIsEnabled()){
             return new MyUserDetails(customer.getEmail(), customer.getPassword(), customer.getIsEnabled(), new ArrayList<>());
         }
             throw new AccountNotEnabledException("Account is disabled");
