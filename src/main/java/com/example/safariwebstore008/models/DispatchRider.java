@@ -23,5 +23,7 @@ public class DispatchRider extends UserModel{
     private List<CustomerOrder>assignedOrders;
     @OneToOne
    private StatePronvices coverage;
+    @OneToMany(mappedBy = "rider")
+    private  List<Cities>assignCities;
 
 }
