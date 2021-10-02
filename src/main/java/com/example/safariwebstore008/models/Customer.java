@@ -25,5 +25,6 @@ public class Customer extends UserModel{
 
     @OneToOne
     private Wallet customerWallet;
-
+    @OneToOne(mappedBy = "customer")
+    private  Cart cart;
 }
