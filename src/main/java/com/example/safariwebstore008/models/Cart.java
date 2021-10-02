@@ -22,7 +22,7 @@ public class Cart extends BaseClass {
 
     private  Integer quantity;
 
-    @ManyToOne
+    @OneToOne
     private  Customer customer;
 
 
