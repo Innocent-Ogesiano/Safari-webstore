@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 public class DispatchRider extends UserModel{
     public DispatchRider( String firstName, String lastName, Date dateOfBirth,
-                          String email, Gender gender,Roles roles,String password,Boolean isEnabled) {
+                         String email, Gender gender,Roles roles,String password,Boolean isEnabled) {
         super (firstName, lastName, dateOfBirth, email, gender,roles,password,isEnabled);
     }
     public DispatchRider() {
@@ -23,5 +23,7 @@ public class DispatchRider extends UserModel{
     private List<CustomerOrder>assignedOrders;
     @OneToOne
    private StatePronvices coverage;
+    @OneToMany(mappedBy = "rider")
+    private  List<Cities>assignCities;
 
 }

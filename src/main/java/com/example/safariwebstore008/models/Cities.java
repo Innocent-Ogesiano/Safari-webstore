@@ -18,4 +18,7 @@ import javax.validation.constraints.Null;
 public class Cities extends BaseClass {
     @Null(message = "city-name field is empty")
     private  String cityName;
+
+    @ManyToOne
+    private  DispatchRider rider;
 }
