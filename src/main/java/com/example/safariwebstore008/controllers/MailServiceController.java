@@ -22,6 +22,5 @@ public class MailServiceController {
     @PostMapping
     public void sendNotification(@RequestBody MailDto mailDto) throws MessagingException {
         this.mailService.sendMail(mailDto);
-        //return null;
     }
 }
