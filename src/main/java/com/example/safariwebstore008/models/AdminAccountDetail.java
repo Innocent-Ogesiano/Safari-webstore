@@ -9,8 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
-import java.time.LocalDateTime;
 
 
 
@@ -20,10 +20,12 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "admin_account_details_table")
 public class AdminAccountDetails extends BaseClass {
-    @Null(message = "bank name field is empty field is empty")
+    @NotNull(message = "bank name field is empty field is empty")
     private  String bankName;
     @Enumerated(EnumType.STRING)
     private AccountType accountType;
-    @Null(message = "Account number field is empty")
+    @NotNull(message = "Account number field is empty")
     private  String accountNumber;
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    private  UserModel user;
 }
