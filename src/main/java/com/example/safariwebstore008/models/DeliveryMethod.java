@@ -12,6 +12,6 @@ public class DeliveryMethod extends BaseClass {
 
     private  String deliveryMethod;
 
-    @OneToOne(mappedBy = "deliveryMethod")
+    @OneToOne
     private CustomerOrder orders;
 }

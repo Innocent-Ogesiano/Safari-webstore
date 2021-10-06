@@ -1,8 +1,7 @@
 package com.example.safariwebstore008.models;
 import com.example.safariwebstore008.common.BaseClass;
 import com.example.safariwebstore008.enums.DeliveryStatus;
-import com.example.safariwebstore008.models.DeliveryMethod;
-import com.example.safariwebstore008.models.OrderDetails;
+import com.example.safariwebstore008.enums.OrderAssigStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 public class CustomerOrder extends BaseClass {
-     @DateTimeFormat(pattern = "dd/mm/yyyy")
+    @DateTimeFormat(pattern = "dd/mm/yyyy")
     private Date deliveryDate;
      @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
@@ -28,9 +27,11 @@ public class CustomerOrder extends BaseClass {
     private Double sum;
 
     private Double deliveryFee;
-
-    @OneToOne
-    private DeliveryMethod deliveryMethod;
+    @ManyToOne
+    private  ShipingAddress shippingAddress;
+    private OrderAssigStatus status = OrderAssigStatus.UNASSIGNED;
+    @ManyToOne
+    private Users user;
 
 
 

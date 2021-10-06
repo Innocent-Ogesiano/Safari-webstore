@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 
@@ -14,6 +15,6 @@ import javax.validation.constraints.Null;
 @NoArgsConstructor
 @Entity
 public class Colors extends BaseClass {
-    @Null(message = "color field is empty")
+    @NotNull(message = "color field is empty")
     private  String color;
 }
