@@ -24,19 +24,12 @@ public class JwtUserDetailsService  implements  UserDetailsService {
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
           Optional<Users> userModel     = userRepository.findUserModelByEmail(userEmail);
           Users user = userModel.get();
-//        Customer customer= customerRepository.findCustomerByEmail(userEmail);
         if(user!=null){
             if(user.getIsEnabled()){
             return new MyUserDetails(user.getEmail(),user.getPassword(), user.getIsEnabled(), new ArrayList<>());
             }
             throw new AccountNotEnabledException("Account is disabled");
         }
-//        else if(customer!=null){
-//            if(customer.getIsEnabled()){
-//            return new MyUserDetails(customer.getEmail(), customer.getPassword(), customer.getIsEnabled(), new ArrayList<>());
-//        }
-//            throw new AccountNotEnabledException("Account is disabled");
-//        }
         else{
             throw new UsernameNotFoundException("User not Found");
         }
