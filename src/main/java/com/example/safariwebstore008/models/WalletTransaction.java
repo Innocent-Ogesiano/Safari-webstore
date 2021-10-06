@@ -9,7 +9,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.util.Date;
 
 @Data
@@ -29,6 +28,6 @@ public class WalletTransaction extends BaseClass {
     @NotNull(message = "amount field is empty")
     private Double amount;
     @ManyToOne
-    private UserModel userModel;
+    private Users userModel;
 
 }

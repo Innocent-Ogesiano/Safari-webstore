@@ -14,5 +14,5 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 public class AssignOrders extends BaseClass {
     @ManyToOne
-    private UserModel user;
+    private Users user;
 }

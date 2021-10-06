@@ -2,8 +2,6 @@ package com.example.safariwebstore008.models;
 import com.example.safariwebstore008.common.BaseClass;
 import com.example.safariwebstore008.enums.DeliveryStatus;
 import com.example.safariwebstore008.enums.OrderAssigStatus;
-import com.example.safariwebstore008.models.DeliveryMethod;
-import com.example.safariwebstore008.models.OrderDetails;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,7 +31,7 @@ public class CustomerOrder extends BaseClass {
     private  ShipingAddress shippingAddress;
     private OrderAssigStatus status = OrderAssigStatus.UNASSIGNED;
     @ManyToOne
-    private  UserModel user;
+    private Users user;
 
 
 

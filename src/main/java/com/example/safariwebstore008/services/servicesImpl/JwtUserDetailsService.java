@@ -2,7 +2,7 @@ package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.MyUserDetails;
 import com.example.safariwebstore008.exceptions.AccountNotEnabledException;
-import com.example.safariwebstore008.models.UserModel;
+import com.example.safariwebstore008.models.Users;
 import com.example.safariwebstore008.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,8 +22,8 @@ public class JwtUserDetailsService  implements  UserDetailsService {
     private PasswordEncoder bcryptEncoder;
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-          Optional<UserModel> userModel     = userRepository.findUserModelByEmail(userEmail);
-          UserModel user = userModel.get();
+          Optional<Users> userModel     = userRepository.findUserModelByEmail(userEmail);
+          Users user = userModel.get();
 //        Customer customer= customerRepository.findCustomerByEmail(userEmail);
         if(user!=null){
             if(user.getIsEnabled()){

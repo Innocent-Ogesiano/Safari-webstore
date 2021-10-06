@@ -3,6 +3,7 @@ import com.example.safariwebstore008.common.BaseClass;
 import com.example.safariwebstore008.enums.Gender;
 import com.example.safariwebstore008.enums.Roles;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,11 +14,11 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.Date;
-
+@Builder
 @Data
 @Entity
 @AllArgsConstructor
-public  class UserModel extends BaseClass {
+public  class Users extends BaseClass {
 
     @NotEmpty(message = "first-name field is empty")
     private String firstName;
@@ -43,10 +44,10 @@ public  class UserModel extends BaseClass {
     private String password;
     private Boolean isEnabled;
 
-    public UserModel(Long id) {
+    public Users(Long id) {
         super(id);
     }
-    public UserModel(){
+    public Users(){
 
     }
 }

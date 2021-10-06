@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-import java.util.List;
 
 
 @Data
@@ -33,7 +31,7 @@ public class ShipingAddress extends BaseClass {
     @ManyToOne
     private StatePronvices listOfState;
     @ManyToOne
-   private UserModel userModel;
+   private Users userModel;
     private String RegionName;
     private String CityName;
 }
