@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 
 
@@ -16,12 +17,11 @@ import javax.validation.constraints.Null;
 @Table(name = "category_size_table")
 public class CategorySize extends BaseClass {
 
-    @Null(message = "size field is empty")
+    @NotBlank(message = "size field is empty")
     private String size;
 
     @ManyToOne
     private  ProductCategory category;
-
 
 
 
