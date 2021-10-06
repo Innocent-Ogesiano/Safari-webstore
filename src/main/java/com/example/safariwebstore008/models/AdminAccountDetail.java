@@ -5,13 +5,9 @@ import com.example.safariwebstore008.enums.AccountType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-
 
 
 @Data
@@ -27,5 +23,5 @@ public class AdminAccountDetail extends BaseClass {
     @NotNull(message = "Account number field is empty")
     private  String accountNumber;
     @ManyToOne(cascade = CascadeType.REMOVE)
-    private  UserModel user;
+    private Users user;
 }
