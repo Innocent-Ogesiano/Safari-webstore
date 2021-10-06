@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.util.Date;
 
@@ -19,17 +20,15 @@ import java.util.Date;
 public class WalletTransaction extends BaseClass {
 
 
-
     @DateTimeFormat(pattern = "dd/mm/yyyy")
-    @Null(message = "transaction date field is empty")
+    @NotNull (message = "transaction date field is empty")
     private Date transactionDate;
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 
-    @Null(message = "amount field is empty")
+    @NotNull(message = "amount field is empty")
     private Double amount;
-
     @ManyToOne
-    private Customer customer;
+    private UserModel userModel;
 
 }

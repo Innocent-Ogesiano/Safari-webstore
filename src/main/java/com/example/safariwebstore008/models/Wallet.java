@@ -21,8 +21,8 @@ import java.util.List;
 public class Wallet extends BaseClass {
 
 
-    @OneToOne(mappedBy = "customerWallet")
-    private  Customer customer;
+    @OneToOne
+    private  UserModel user;
 
     private Double walletBalance;
 

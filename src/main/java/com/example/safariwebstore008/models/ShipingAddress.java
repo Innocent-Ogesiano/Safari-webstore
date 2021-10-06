@@ -9,13 +9,14 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.util.List;
 
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class ShipingAddres extends BaseClass {
+public class ShipingAddress extends BaseClass {
 
    @NotNull(message = "first-name field is empty")
     private String firstName;
@@ -32,7 +33,7 @@ public class ShipingAddres extends BaseClass {
     @ManyToOne
     private StatePronvices listOfState;
     @ManyToOne
-   private Customer customer;
+   private UserModel userModel;
     private String RegionName;
     private String CityName;
 }

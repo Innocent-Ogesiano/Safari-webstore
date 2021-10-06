@@ -19,7 +19,7 @@ import javax.validation.constraints.Null;
 @NoArgsConstructor
 @Entity
 @Table(name = "admin_account_details_table")
-public class AdminAccountDetails extends BaseClass {
+public class AdminAccountDetail extends BaseClass {
     @NotNull(message = "bank name field is empty field is empty")
     private  String bankName;
     @Enumerated(EnumType.STRING)
