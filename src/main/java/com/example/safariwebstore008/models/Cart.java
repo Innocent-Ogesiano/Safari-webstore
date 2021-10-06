@@ -11,8 +11,8 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "cart_table")
 @Entity
+@Table(name = "cart_table")
 public class Cart extends BaseClass {
 
     @ManyToOne
@@ -23,7 +23,6 @@ public class Cart extends BaseClass {
     private  Integer quantity;
 
     @OneToOne
-    private  Customer customer;
-
+    private  UserModel userModel;
 
 }
