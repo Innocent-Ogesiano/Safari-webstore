@@ -13,11 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import javax.mail.MessagingException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class MailServiceTest {
 

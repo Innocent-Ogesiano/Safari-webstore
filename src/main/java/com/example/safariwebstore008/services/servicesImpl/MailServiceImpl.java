@@ -2,22 +2,27 @@ package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.MailDto;
 import com.example.safariwebstore008.services.MailService;
-import lombok.Getter;
-import lombok.Setter;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-@Setter
+
 @Service
 public class MailServiceImpl implements MailService {
 
+
+    private final JavaMailSender mailSender;
+
     @Autowired
-    private JavaMailSender mailSender;
+    public MailServiceImpl(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+
 
     @Override
     public void sendMail(MailDto mailDto) throws MessagingException {
