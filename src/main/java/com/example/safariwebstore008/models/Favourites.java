@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -17,9 +18,8 @@ public class Favourites extends BaseClass {
 
 
     @ManyToOne
-    private Customer customer;
-
-    @OneToOne
-    private  Products products;
+    private Users userModel;
+    @OneToMany
+    private List<Products> products;
 
 }

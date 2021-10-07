@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.util.List;
 
@@ -17,16 +18,13 @@ import java.util.List;
 @Table(name = "products_table")
 public class Products  extends BaseClass {
 
-    @Null(message = "Description field is empty")
+    @NotNull(message = "Description field is empty")
     private String description;
 
-    @Null(message = "product price field is empty")
+    @NotNull(message = "product price field is empty")
     private Double price;
 
-    @OneToOne(mappedBy = "products")
-    private Favourites favourites;
-    @OneToMany
-    private List<Colors>listOfProductColors;
+    private String Colors;
 
 
 }
