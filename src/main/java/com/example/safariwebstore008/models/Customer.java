@@ -3,11 +3,11 @@ package com.example.safariwebstore008.models;
 import com.example.safariwebstore008.enums.Gender;
 import com.example.safariwebstore008.enums.Roles;
 import lombok.Data;
+import org.springframework.context.annotation.Role;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
 
 @Data
 @Entity
