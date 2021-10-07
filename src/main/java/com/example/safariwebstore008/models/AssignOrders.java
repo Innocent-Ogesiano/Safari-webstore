@@ -5,24 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
-
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "cart_table")
-public class Cart extends BaseClass {
-
+public class AssignOrders extends BaseClass {
     @ManyToOne
-    private  Products product;
-
-    private  Double price;
-
-    private  Integer quantity;
-
-    @OneToOne
-    private Users userModel;
-
+    private Users user;
 }

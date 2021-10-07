@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 @Data
@@ -14,7 +15,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product_subcategory_table")
 public class ProductSubCategory extends BaseClass {
-
+    @NotNull(message="category name is empty")
+    private String categoryName;
     @ManyToOne
     private  ProductCategory category;
 }

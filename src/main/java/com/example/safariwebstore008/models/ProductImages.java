@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
 
@@ -16,7 +17,7 @@ import javax.validation.constraints.Null;
 @Table(name = "product_image_table")
 public class ProductImages extends BaseClass {
 
-    @Null(message = "imageUrl isempty")
+    @NotNull(message = "imageUrl isempty")
     private String imageURl;
 
     @ManyToOne

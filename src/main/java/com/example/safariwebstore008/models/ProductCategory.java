@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -15,9 +17,9 @@ import javax.validation.constraints.Null;
 @Table(name = "product_category_table")
 public class ProductCategory extends BaseClass {
 
-    @Null(message = "Product category name is empty")
+    @NotNull(message = "Product category name is empty")
     private  String productCategoryName;
 
-    @ManyToOne
-    private  Products product;
+    @OneToMany
+    private List< Products> product;
 }
