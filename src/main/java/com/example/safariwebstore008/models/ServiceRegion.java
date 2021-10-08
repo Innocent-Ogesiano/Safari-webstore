@@ -17,5 +17,5 @@ public class ServiceRegion extends BaseClass {
    @OneToMany
    private List<Cities>CitiesWithinARegion;
    @OneToOne
-   private Users userModel;
+   private User userModel;
 }

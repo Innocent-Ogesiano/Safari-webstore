@@ -1,30 +1,30 @@
 package com.example.safariwebstore008.controllers;
 
 import com.example.safariwebstore008.dto.UpdateCustomerDto;
-import com.example.safariwebstore008.enums.Roles;
-import com.example.safariwebstore008.models.Customer;
-import com.example.safariwebstore008.services.CustomerServices;
+import com.example.safariwebstore008.models.User;
+import com.example.safariwebstore008.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.relation.Role;
 import javax.security.auth.login.AccountNotFoundException;
 
 @RestController
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
 
+    private final UserServices userServices;
+
     @Autowired
-    private CustomerServices customerServices;
+    public CustomerController(UserServices userServices) {
+        this.userServices = userServices;
+    }
 
     @PutMapping("/edit/{userEmail}")
-    @PreAuthorize()
-    public ResponseEntity<Customer> editCustomer(@RequestBody UpdateCustomerDto editCustomerDto, @PathVariable("userEmail")String email) throws AccountNotFoundException {
-        Customer customer = customerServices.updateCustomer(editCustomerDto,email);
-        return new ResponseEntity<>(customer, HttpStatus.CREATED);
+    public ResponseEntity<User> editCustomer(@RequestBody UpdateCustomerDto editCustomerDto, @PathVariable("userEmail")String email) throws AccountNotFoundException {
+        User users = userServices.updateCustomer(editCustomerDto,email);
+        return new ResponseEntity<>(users, HttpStatus.CREATED);
     }
 
 }
