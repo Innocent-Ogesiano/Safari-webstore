@@ -31,7 +31,7 @@ public class CustomerOrder extends BaseClass {
     private  ShipingAddress shippingAddress;
     private OrderAssigStatus status = OrderAssigStatus.UNASSIGNED;
     @ManyToOne
-    private Users user;
+    private User user;
 
 
 
