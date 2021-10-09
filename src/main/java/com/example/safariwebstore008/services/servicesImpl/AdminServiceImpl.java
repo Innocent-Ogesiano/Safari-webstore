@@ -31,12 +31,4 @@ public class AdminServiceImpl implements AdminService {
         newDispatchRider.setIsEnabled(true);
         return userRepository.save(newDispatchRider);
     }
-
-    @Override
-    public Products addProduct(Products products) {
-        Products newProduct = new Products();
-        newProduct.setDescription(products.getDescription());
-        newProduct.setPrice(products.getPrice());
-        return null;
-    }
 }

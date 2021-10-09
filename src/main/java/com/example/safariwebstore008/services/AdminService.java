@@ -8,6 +8,4 @@ import org.springframework.stereotype.Service;
 public interface AdminService {
 
     User createDispatchRider (User dispatchRider);
-
-    Products addProduct (Products products);
 }
