@@ -31,7 +31,7 @@ public class ShipingAddress extends BaseClass {
     @ManyToOne
     private StatePronvices listOfState;
     @ManyToOne
-   private Users userModel;
+   private User userModel;
     private String RegionName;
     private String CityName;
 }
