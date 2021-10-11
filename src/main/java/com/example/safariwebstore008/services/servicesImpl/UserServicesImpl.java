@@ -1,6 +1,8 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.RegistrationDto;
+import com.example.safariwebstore008.dto.UpdateCustomerDto;
+import com.example.safariwebstore008.enums.Gender;
 import com.example.safariwebstore008.enums.Roles;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.repositories.UserRepository;
@@ -8,6 +10,9 @@ import com.example.safariwebstore008.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import javax.security.auth.login.AccountNotFoundException;
+import java.util.Optional;
 
 @Component
 public class UserServicesImpl implements UserServices {
@@ -32,21 +37,7 @@ public class UserServicesImpl implements UserServices {
 
         return userRepository.save(user);
     }
-import com.example.safariwebstore008.dto.UpdateCustomerDto;
-import com.example.safariwebstore008.models.User;
-import com.example.safariwebstore008.repositories.UserRepository;
-import com.example.safariwebstore008.services.UserServices;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountNotFoundException;
-import java.util.Optional;
-
-@Service
-public class UserServicesImpl implements UserServices {
-
-    @Autowired
-    UserRepository userRepository;
 
     @Override
     public User updateCustomer(UpdateCustomerDto updateCustomerDto, String email) throws AccountNotFoundException {
@@ -55,6 +46,9 @@ public class UserServicesImpl implements UserServices {
             User customer = optionalUsers.get();
             customer.setFirstName(updateCustomerDto.getFirstName());
             customer.setLastName(updateCustomerDto.getLastName());
+            customer.setEmail(updateCustomerDto.getEmail());
+            customer.setGender(updateCustomerDto.getGender());
+            customer.setDateOfBirth(updateCustomerDto.getDateOfBirth());
             return userRepository.save(customer);
         } else{
             throw new AccountNotFoundException("User account not found");

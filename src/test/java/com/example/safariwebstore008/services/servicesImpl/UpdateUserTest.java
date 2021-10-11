@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import javax.security.auth.login.AccountNotFoundException;
 
+import java.sql.Date;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -31,17 +32,17 @@ public class UpdateUserTest {
 
     @Test
     void updateCustomer() throws AccountNotFoundException {
-//        UserServicesImpl updateUser = new UserServicesImpl();
+
         User users = new User();
         users.setGender(Gender.MALE);
-
+        users.setDateOfBirth(new Date(1/4/1990));
         users.setPassword("test1234");
         users.setFirstName("Tom");
         users.setLastName("Jerry");
         users.setEmail("jerryT@example.com");
 
 
-        UpdateCustomerDto updateCustomerDto = new UpdateCustomerDto("John","Doe");
+        UpdateCustomerDto updateCustomerDto = new UpdateCustomerDto("John","Doe","jerryT@example.com", new Date(1/4/1990),Gender.MALE);
 
 
         User updatedUser = new User();
