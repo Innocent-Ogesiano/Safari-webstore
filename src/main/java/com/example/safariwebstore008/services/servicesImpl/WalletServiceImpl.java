@@ -27,6 +27,7 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public Wallet topUpWalletAccount(FundWalletRequest fundWalletRequest) {
         User user= userRepository.findUserByEmail(fundWalletRequest.getEmail()).get();
+        System.out.println(user);
         if(user!=null){
             Optional<Wallet> wallet= walletRepository.findWalletByUserEmail(fundWalletRequest.getEmail());
             if(wallet.isPresent()){
@@ -37,7 +38,6 @@ public class WalletServiceImpl implements WalletService {
                 walletTransaction.setTransactionType(TransactionType.FUNDWALLET);
                 walletTransaction.setAmount(fundWalletRequest.getAmount());
                 walletTransaction.setWallet(wallet.get());
-                walletTransaction.setUserModel(user);
                 Wallet wallet4= walletRepository.save(wallet.get());
                 walletTransactionRepository.save(walletTransaction);
                 return wallet4;
@@ -52,7 +52,6 @@ public class WalletServiceImpl implements WalletService {
                 walletTransaction.setTransactionType(TransactionType.FUNDWALLET);
                 walletTransaction.setAmount(fundWalletRequest.getAmount());
                 walletTransaction.setWallet(wallet2);
-                walletTransaction.setUserModel(user);
                 Wallet wallet3= walletRepository.save(wallet2);
                 walletTransactionRepository.save(walletTransaction);
                 return wallet3;

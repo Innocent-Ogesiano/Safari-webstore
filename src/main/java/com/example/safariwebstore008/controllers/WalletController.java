@@ -19,6 +19,7 @@ public class WalletController {
     private WalletService walletService;
     @PostMapping("/wallet")
     public ResponseEntity<Wallet> fundWallet(@RequestBody FundWalletRequest fundWalletRequest){
+        System.out.println(fundWalletRequest);
         Wallet wallet = walletService.topUpWalletAccount(fundWalletRequest);
         return new ResponseEntity<>(wallet,HttpStatus.OK);
     }

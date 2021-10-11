@@ -65,7 +65,7 @@ class WalletServiceImplTest {
      walletTransaction.setWallet(wallet.get());
      walletTransaction.setAmount(fundWalletRequest.getAmount());
      walletTransaction.setTransactionDate(date);
-     walletTransaction.setUserModel(user.get());
+    // walletTransaction.setUserModel(user.get());
      walletTransaction.setTransactionType(TransactionType.FUNDWALLET);
 
 
