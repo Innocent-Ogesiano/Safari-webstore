@@ -18,6 +18,7 @@ import java.util.Date;
 @Data
 @Entity
 @AllArgsConstructor
+@Table(name = "users_table")
 public  class User extends BaseClass {
 
     @NotEmpty(message = "first-name field is empty")
@@ -32,6 +33,7 @@ public  class User extends BaseClass {
 
     @Email( message = "email field is not properly formatted")
     @NotEmpty(message = "email field is empty")
+    @Column(unique = true)
     private  String email;
 
     @NotEmpty(message = "gender field is empty")
