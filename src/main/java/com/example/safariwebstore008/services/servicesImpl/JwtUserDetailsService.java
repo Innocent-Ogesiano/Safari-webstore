@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -22,17 +21,13 @@ public class JwtUserDetailsService  implements  UserDetailsService {
     private PasswordEncoder bcryptEncoder;
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-          Optional<User> userModel     = userRepository.findUserByEmail(userEmail);
-          User user = userModel.get();
-        if(user!=null){
+          Optional<User> userModel = userRepository.findUserByEmail(userEmail);
+          User user = userModel.orElseThrow(() ->
+                  new UsernameNotFoundException("No user found with email : " + userEmail));
+
             if(user.getIsEnabled()){
-            return new MyUserDetails(user.getEmail(),user.getPassword(), user.getIsEnabled(), new ArrayList<>());
+                return new MyUserDetails(user);
             }
             throw new AccountNotEnabledException("Account is disabled");
         }
-        else{
-            throw new UsernameNotFoundException("User not Found");
-        }
-    }
-
 }

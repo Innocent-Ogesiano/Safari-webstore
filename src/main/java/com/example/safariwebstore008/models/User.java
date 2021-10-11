@@ -2,7 +2,6 @@ package com.example.safariwebstore008.models;
 import com.example.safariwebstore008.common.BaseClass;
 import com.example.safariwebstore008.enums.Gender;
 import com.example.safariwebstore008.enums.Roles;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,6 +33,7 @@ public  class User extends BaseClass {
 
     @Email( message = "email field is not properly formatted")
     @NotEmpty(message = "email field is empty")
+    @Column(unique = true)
     private  String email;
 
     @NotEmpty(message = "gender field is empty")
@@ -45,7 +45,6 @@ public  class User extends BaseClass {
     @Size(min = 8,message = "The password character is less than 8")
     private String password;
     private Boolean isEnabled;
-
 
     public User(Long id) {
         super(id);
