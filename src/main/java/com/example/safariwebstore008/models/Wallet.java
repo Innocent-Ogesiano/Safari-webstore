@@ -17,7 +17,7 @@ public class Wallet extends BaseClass {
 
 
     @OneToOne
-    private Users user;
+    private User user;
 
     private Double walletBalance;
 

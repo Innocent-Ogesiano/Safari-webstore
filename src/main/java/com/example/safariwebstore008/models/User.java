@@ -18,7 +18,8 @@ import java.util.Date;
 @Data
 @Entity
 @AllArgsConstructor
-public  class Users extends BaseClass {
+@Table(name = "Users")
+public  class User extends BaseClass {
 
     @NotEmpty(message = "first-name field is empty")
     private String firstName;
@@ -44,10 +45,10 @@ public  class Users extends BaseClass {
     private String password;
     private Boolean isEnabled;
 
-    public Users(Long id) {
+    public User(Long id) {
         super(id);
     }
-    public Users(){
+    public User(){
 
     }
 }
