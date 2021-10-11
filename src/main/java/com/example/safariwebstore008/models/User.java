@@ -5,21 +5,20 @@ import com.example.safariwebstore008.enums.Roles;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 @Builder
 @Data
 @Entity
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "users_table")
 public  class User extends BaseClass {
 
     @NotEmpty(message = "first-name field is empty")
@@ -34,6 +33,7 @@ public  class User extends BaseClass {
 
     @Email( message = "email field is not properly formatted")
     @NotEmpty(message = "email field is empty")
+    @Column(unique = true)
     private  String email;
 
     @NotEmpty(message = "gender field is empty")
