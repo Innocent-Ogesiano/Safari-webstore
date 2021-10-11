@@ -1,5 +1,6 @@
 package com.example.safariwebstore008.controllers;
 
+import com.example.safariwebstore008.configurations.JwtTokenUtil;
 import com.example.safariwebstore008.dto.UpdatePasswordDto;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.services.UserServices;
@@ -12,21 +13,23 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
+@RestController
 public class UserController {
     UriComponentsBuilder uriComponentsBuilder;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final UserServices userServices;
 
-    private UserServices userServices;
-
     @Autowired
-    public UserController(UserServices userServices) {
+    public UserController(UserServices userServices, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil) {
         this.userServices = userServices;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.authenticationManager = authenticationManager;
     }
 
-    @PutMapping("/updatePassword/{userEmail}")
-    private ResponseEntity<User> updatePassword(@RequestParam UpdatePasswordDto updatePasswordDto, @PathVariable("userEmail") String email) throws Exception {
+    @PutMapping("/updatePassword/{token}")
+    private ResponseEntity<User> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto, @PathVariable("token") String token) throws Exception {
+        String email = jwtTokenUtil.getUserEmailFromToken(token);
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, updatePasswordDto.oldPassword));
         } catch (DisabledException e) {
