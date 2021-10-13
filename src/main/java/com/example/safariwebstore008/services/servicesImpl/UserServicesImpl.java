@@ -1,6 +1,7 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.RegistrationDto;
+import com.example.safariwebstore008.dto.UpdatePasswordDto;
 import com.example.safariwebstore008.dto.UpdateCustomerDto;
 import com.example.safariwebstore008.enums.Gender;
 import com.example.safariwebstore008.enums.Roles;
@@ -9,19 +10,28 @@ import com.example.safariwebstore008.repositories.UserRepository;
 import com.example.safariwebstore008.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.Optional;
-
-@Component
+@Service
 public class UserServicesImpl implements UserServices {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public UserServicesImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public User updatePassword(UpdatePasswordDto updatePasswordDto, String email) throws Exception {
+        User user1 = userRepository.findUserByEmail(email).get();
+        user1.setPassword(passwordEncoder.encode(updatePasswordDto.getNewPassword()));
+        userRepository.save(user1);
+        return user1;
+    }
 
     @Override
     public User signup(RegistrationDto registrationDto) {
