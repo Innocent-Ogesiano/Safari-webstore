@@ -44,6 +44,7 @@ private ShippingRepository shippingRepository;
         customerOrder.setDeliveryStatus(DeliveryStatus.PENDING);
         customerOrder.setStatus(OrderAssigStatus.UNASSIGNED);
         customerOrder.setDeliveryMethod(DeliveryMethod.DOOR_DELIVERY);
+        customerOrder.setUserModel(user);
         customerOrder.setCart(cart);
         ShipingAddress shipingAddress= new ShipingAddress();
         shipingAddress.setEmail(checkoutDto.getEmail());

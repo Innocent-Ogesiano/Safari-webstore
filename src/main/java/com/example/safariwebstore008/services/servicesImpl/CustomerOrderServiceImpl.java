@@ -31,6 +31,7 @@ public class CustomerOrderServiceImpl implements CustomerOrderService {
         customerOrder.setStatus(OrderAssigStatus.UNASSIGNED);
         customerOrder.setDeliveryStatus(DeliveryStatus.PENDING);
         customerOrder.setCreateDate(LocalDateTime.now());
+        customerOrder.setUserModel(user);
         customerOrder.setTotalOrderAmount(checkoutDto.getTotalOrderAmount());
         customerOrder.setDeliveryMethod(DeliveryMethod.DOOR_DELIVERY);
         shipingAddress.setEmail(checkoutDto.getEmail());

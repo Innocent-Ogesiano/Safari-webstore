@@ -31,5 +31,7 @@ public class CustomerOrder extends BaseClass {
     @ManyToOne
     private Cart cart;
     private Double totalOrderAmount;
+    @ManyToOne
+    private User userModel;
 
 }
