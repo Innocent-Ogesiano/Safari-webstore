@@ -6,6 +6,7 @@ import com.example.safariwebstore008.models.User;
 import javax.security.auth.login.AccountNotFoundException;
 
 import com.example.safariwebstore008.dto.RegistrationDto;
+import com.example.safariwebstore008.dto.UpdatePasswordDto;
 import com.example.safariwebstore008.models.User;
 import org.springframework.stereotype.Service;
 
@@ -14,4 +15,5 @@ public interface UserServices {
     User updateCustomer(UpdateCustomerDto updateCustomerDto, String email) throws AccountNotFoundException;
 
     User signup(RegistrationDto registrationDto);
+    User updatePassword(UpdatePasswordDto passwordRestDto, String email) throws Exception;
 }

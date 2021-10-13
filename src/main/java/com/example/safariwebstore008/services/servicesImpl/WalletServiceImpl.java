@@ -4,6 +4,9 @@ import com.example.safariwebstore008.dto.MakePaymentDto;
 import com.example.safariwebstore008.enums.TransactionType;
 import com.example.safariwebstore008.exceptions.AccountNotEnabledException;
 import com.example.safariwebstore008.exceptions.InsufficientFundsException;
+import com.example.safariwebstore008.dto.FundWalletRequest;
+import com.example.safariwebstore008.enums.TransactionType;
+import com.example.safariwebstore008.exceptions.AccountNotEnabledException;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.models.Wallet;
 import com.example.safariwebstore008.models.WalletTransaction;
@@ -30,26 +33,72 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public Wallet makePaymentByWallet(MakePaymentDto makePaymentDto) throws InsufficientFundsException {
-            Optional<Wallet> optionalWallet = walletRepository.findWalletByUserEmail(makePaymentDto.getEmail());
-                Wallet wallet = optionalWallet.get();
-                Double walletBalance = wallet.getWalletBalance();
-                Double costOfProduct = makePaymentDto.getAmount();
-                if (walletBalance > costOfProduct) {
-                    Double newWalletBalance = walletBalance - costOfProduct;
-                    wallet.setWalletBalance(newWalletBalance);
-                    WalletTransaction walletTransaction = new WalletTransaction();
-                    walletTransaction.setTransactionDate(makePaymentDto.getTransactionDate());
-                    walletTransaction.setTransactionType(TransactionType.MAKEPAYMENT);
-                    walletTransaction.setAmount(makePaymentDto.getAmount());
-                    walletTransaction.setWallet(wallet);
-                    walletTransactionRepository.save(walletTransaction);
-                    return walletRepository.save(wallet);
-                } else {
-                    throw new InsufficientFundsException("Your wallet balance is not sufficient to buy product, kindly fund your wallet");
-                }
+        Optional<Wallet> optionalWallet = walletRepository.findWalletByUserEmail(makePaymentDto.getEmail());
+        Wallet wallet = optionalWallet.get();
+        Double walletBalance = wallet.getWalletBalance();
+        Double costOfProduct = makePaymentDto.getAmount();
+        if (walletBalance > costOfProduct) {
+            Double newWalletBalance = walletBalance - costOfProduct;
+            wallet.setWalletBalance(newWalletBalance);
+            WalletTransaction walletTransaction = new WalletTransaction();
+            walletTransaction.setTransactionDate(makePaymentDto.getTransactionDate());
+            walletTransaction.setTransactionType(TransactionType.MAKEPAYMENT);
+            walletTransaction.setAmount(makePaymentDto.getAmount());
+            walletTransaction.setWallet(wallet);
+            walletTransactionRepository.save(walletTransaction);
+            return walletRepository.save(wallet);
+        } else {
+            throw new InsufficientFundsException("Your wallet balance is not sufficient to buy product, kindly fund your wallet");
         }
     }
 
 
+    @Override
+    public Wallet topUpWalletAccount(FundWalletRequest fundWalletRequest) {
+        User user= userRepository.findUserByEmail(fundWalletRequest.getEmail()).get();
+        System.out.println(user);
+        if(user!=null){
+            Optional<Wallet> wallet= walletRepository.findWalletByUserEmail(fundWalletRequest.getEmail());
+            if(wallet.isPresent()){
+                Double presentBalance= wallet.get().getWalletBalance();
+                wallet.get().setWalletBalance(presentBalance + fundWalletRequest.getAmount());
+                WalletTransaction walletTransaction = new WalletTransaction();
+                walletTransaction.setTransactionDate(fundWalletRequest.getTransactionDate());
+                walletTransaction.setTransactionType(TransactionType.FUNDWALLET);
+                walletTransaction.setAmount(fundWalletRequest.getAmount());
+                walletTransaction.setWallet(wallet.get());
+                Wallet wallet4= walletRepository.save(wallet.get());
+                walletTransactionRepository.save(walletTransaction);
+                return wallet4;
 
+            }
+            else{
+                Wallet wallet2 = new Wallet();
+                wallet2.setUser(user);
+                wallet2.setWalletBalance(fundWalletRequest.getAmount());
+                WalletTransaction walletTransaction = new WalletTransaction();
+                walletTransaction.setTransactionDate(fundWalletRequest.getTransactionDate());
+                walletTransaction.setTransactionType(TransactionType.FUNDWALLET);
+                walletTransaction.setAmount(fundWalletRequest.getAmount());
+                walletTransaction.setWallet(wallet2);
+                Wallet wallet3= walletRepository.save(wallet2);
+                walletTransactionRepository.save(walletTransaction);
+                return wallet3;
+            }
 
+        }
+        else{
+            throw new AccountNotEnabledException("User account not enabled");
+        }
+    }
+
+    @Override
+    public Double checkWalletBalance(String email) {
+        Optional<Wallet> userWallet = walletRepository.findWalletByUserEmail(email);
+        if (userWallet.isPresent()) {
+            Wallet wallet = userWallet.get();
+            return wallet.getWalletBalance();
+        }
+        return null;
+    }
+}
