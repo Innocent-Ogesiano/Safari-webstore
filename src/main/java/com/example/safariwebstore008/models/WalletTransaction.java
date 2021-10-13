@@ -27,7 +27,7 @@ public class WalletTransaction extends BaseClass {
 
     @NotNull(message = "amount field is empty")
     private Double amount;
-    @ManyToOne
-    private User userModel;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Wallet wallet;
 
 }
