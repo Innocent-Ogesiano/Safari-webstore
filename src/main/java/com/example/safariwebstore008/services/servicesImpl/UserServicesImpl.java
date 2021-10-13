@@ -1,39 +1,33 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
-import com.example.safariwebstore008.models.Wallet;
-import com.example.safariwebstore008.repositories.WalletRepository;
-import com.example.safariwebstore008.services.UserServices;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import com.example.safariwebstore008.dto.RegistrationDto;
+import com.example.safariwebstore008.dto.UpdatePasswordDto;
 import com.example.safariwebstore008.enums.Roles;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.repositories.UserRepository;
+import com.example.safariwebstore008.services.UserServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServicesImpl implements UserServices {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
-    private final WalletRepository walletRepository;
-
-    @Autowired
-    public UserServicesImpl(WalletRepository walletRepository) {
-        this.walletRepository = walletRepository;
+    public UserServicesImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
+
+
     @Override
-    public Double checkWalletBalance(String email) {
-        Optional<Wallet> userWallet = walletRepository.findWalletByUserEmail(email);
-        if (userWallet.isPresent()) {
-            Wallet wallet = userWallet.get();
-            return wallet.getWalletBalance();
-        }
-        return null;
+    public User updatePassword(UpdatePasswordDto updatePasswordDto, String email) throws Exception {
+        User user1 = userRepository.findUserByEmail(email).get();
+        user1.setPassword(passwordEncoder.encode(updatePasswordDto.getNewPassword()));
+        userRepository.save(user1);
+        return user1;
     }
     
     @Override

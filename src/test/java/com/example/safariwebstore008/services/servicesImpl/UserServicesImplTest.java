@@ -1,35 +1,49 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
-import com.example.safariwebstore008.models.Wallet;
-import com.example.safariwebstore008.repositories.WalletRepository;
-import org.junit.jupiter.api.Assertions;
+import com.example.safariwebstore008.dto.UpdatePasswordDto;
+import com.example.safariwebstore008.enums.Gender;
+import com.example.safariwebstore008.enums.Roles;
+import com.example.safariwebstore008.models.User;
+import com.example.safariwebstore008.repositories.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+
 @ExtendWith(MockitoExtension.class)
 class UserServicesImplTest {
     @Mock
-    private WalletRepository walletRepository;
+    private UserRepository userRepository;
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @InjectMocks
-    private UserServicesImpl userServices;
+    private UserServicesImpl userService;
 
     @Test
-    void checkWalletBalance() {
-        String email= "inno@gmail.com";
-        Wallet wallet = new Wallet();
-        wallet.setId(1L);
-        wallet.setWalletBalance(5000D);
+    void passwordReset() throws Exception {
+        User user = new User();
+        user.setPassword("12345678");
+        user.setFirstName("Inno");
+        user.setLastName("Oge");
+        user.setEmail("oge@gmail.com");
+        user.setGender(Gender.MALE);
+        user.setRoles(Roles.CUSTOMER);
 
-        when(walletRepository.findWalletByUserEmail(email)).thenReturn(Optional.of(wallet));
-        Double walletBalance = userServices.checkWalletBalance(email);
-        System.out.println(walletBalance);
-        Assertions.assertEquals(walletBalance, wallet.getWalletBalance());
+        given(userRepository.save(user)).willReturn(user);
+        UpdatePasswordDto passwordResetDto = new UpdatePasswordDto();
+        passwordResetDto.setOldPassword("12345678");
+        passwordResetDto.setNewPassword("87654321");
+        given(userRepository.findUserByEmail("oge@gmail.com")).willReturn(Optional.of(user));
+        final User expected = userService.updatePassword(passwordResetDto, user.getEmail());
+        assertThat(expected.getPassword()).isNotEqualTo(passwordResetDto.getOldPassword());
+        assertThat(expected.getEmail().equals(user.getEmail()));
     }
 }
