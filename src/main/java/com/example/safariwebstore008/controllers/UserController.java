@@ -42,18 +42,14 @@ public class UserController {
     private final JwtTokenUtil jwtTokenUtil;
     private final UserServices userServices;
     private CustomerOrderService customerOrderService;
-    @Autowired
-    public UserController(CustomerOrderService customerOrderService) {
-        this.customerOrderService = customerOrderService;
-    }
-
-
 
     @Autowired
-    public UserController(UserServices userServices, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil) {
+    public UserController(UserServices userServices, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,CustomerOrderService customerOrderService) {
         this.userServices = userServices;
         this.jwtTokenUtil = jwtTokenUtil;
         this.authenticationManager = authenticationManager;
+        this.customerOrderService = customerOrderService;
+
     }
 
     @PutMapping("/updatePassword/{token}")
