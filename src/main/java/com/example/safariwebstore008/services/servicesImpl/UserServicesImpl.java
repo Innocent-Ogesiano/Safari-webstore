@@ -29,7 +29,7 @@ public class UserServicesImpl implements UserServices {
         userRepository.save(user1);
         return user1;
     }
-
+    
     @Override
     public User signup(RegistrationDto registrationDto) {
         User user = new User();

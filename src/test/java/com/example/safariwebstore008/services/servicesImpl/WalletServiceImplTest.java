@@ -8,10 +8,8 @@ import com.example.safariwebstore008.models.WalletTransaction;
 import com.example.safariwebstore008.repositories.UserRepository;
 import com.example.safariwebstore008.repositories.WalletRepository;
 import com.example.safariwebstore008.repositories.WalletTransactionRepository;
-import com.example.safariwebstore008.services.WalletService;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,7 +22,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 @Slf4j
 @ExtendWith(MockitoExtension.class)
@@ -82,5 +81,18 @@ class WalletServiceImplTest {
      Assertions.assertThat(wallet1.getWalletBalance()).isNotNull();
      Assertions.assertThat(wallet1.getWalletBalance()).isEqualTo(fundWalletRequest.getAmount());
  }
+
+    @Test
+    void checkWalletBalance() {
+        String email = "inno@gmail.com";
+        Wallet wallet = new Wallet();
+        wallet.setId(1L);
+        wallet.setWalletBalance(5000D);
+
+        when(walletRepository.findWalletByUserEmail(email)).thenReturn(Optional.of(wallet));
+        Double walletBalance = walletService.checkWalletBalance(email);
+        System.out.println(walletBalance);
+        assertEquals(walletBalance, wallet.getWalletBalance());
+    }
 
 }

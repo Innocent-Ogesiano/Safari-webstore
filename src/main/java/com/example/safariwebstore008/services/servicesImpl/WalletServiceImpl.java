@@ -62,4 +62,14 @@ public class WalletServiceImpl implements WalletService {
             throw new AccountNotEnabledException("User account not enabled");
         }
     }
+
+    @Override
+    public Double checkWalletBalance(String email) {
+        Optional<Wallet> userWallet = walletRepository.findWalletByUserEmail(email);
+        if (userWallet.isPresent()) {
+            Wallet wallet = userWallet.get();
+            return wallet.getWalletBalance();
+        }
+        return null;
+    }
 }
