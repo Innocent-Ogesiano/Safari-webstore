@@ -1,7 +1,8 @@
 package com.example.safariwebstore008.models;
 import com.example.safariwebstore008.common.BaseClass;
 import com.example.safariwebstore008.enums.DeliveryStatus;
-import com.example.safariwebstore008.enums.OrderAssigStatus;
+import com.example.safariwebstore008.enums.OrderAssignStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,12 +29,20 @@ public class CustomerOrder extends BaseClass {
 
     private Double deliveryFee;
     @ManyToOne
-    private  ShipingAddress shippingAddress;
-    private OrderAssigStatus status = OrderAssigStatus.UNASSIGNED;
-    @ManyToOne
-    private Users user;
+    private ShippingAddress shippingAddress;
+    @Enumerated(EnumType.STRING)
+    private OrderAssignStatus status;
 
 
 
-
+    public CustomerOrder( Long id,Date deliveryDate, DeliveryStatus deliveryStatus, List<OrderDetails> eachOrderItem, Double sum, Double deliveryFee, ShippingAddress shippingAddress, OrderAssignStatus status) {
+        super(id);
+        this.deliveryDate = deliveryDate;
+        this.deliveryStatus = deliveryStatus;
+        this.eachOrderItem = eachOrderItem;
+        this.sum = sum;
+        this.deliveryFee = deliveryFee;
+        this.shippingAddress = shippingAddress;
+        this.status = status;
+    }
 }

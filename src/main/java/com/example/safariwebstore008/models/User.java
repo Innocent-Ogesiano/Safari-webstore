@@ -17,8 +17,8 @@ import java.util.Date;
 @Builder
 @Data
 @Entity
-@AllArgsConstructor
-public  class Users extends BaseClass {
+@Table(name = "users_table")
+public  class User extends BaseClass {
 
     @NotEmpty(message = "first-name field is empty")
     private String firstName;
@@ -32,6 +32,7 @@ public  class Users extends BaseClass {
 
     @Email( message = "email field is not properly formatted")
     @NotEmpty(message = "email field is empty")
+    @Column(unique = true)
     private  String email;
 
     @NotEmpty(message = "gender field is empty")
@@ -43,11 +44,35 @@ public  class Users extends BaseClass {
     @Size(min = 8,message = "The password character is less than 8")
     private String password;
     private Boolean isEnabled;
+    private String dispatchRiderLocation;
 
-    public Users(Long id) {
+    public User(Long id) {
         super(id);
     }
-    public Users(){
+    public User(){
 
+    }
+
+    public User(String firstName, String lastName, Date dateOfBirth, String email, Gender gender, Roles roles, String password, Boolean isEnabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.gender = gender;
+        this.roles = roles;
+        this.password = password;
+        this.isEnabled = isEnabled;
+    }
+
+    public User(String firstName, String lastName, Date dateOfBirth, String email, Gender gender, Roles roles, String password, Boolean isEnabled, String dispatchRiderLocation) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.gender = gender;
+        this.roles = roles;
+        this.password = password;
+        this.isEnabled = isEnabled;
+        this.dispatchRiderLocation = dispatchRiderLocation;
     }
 }

@@ -1,5 +1,5 @@
 package com.example.safariwebstore008.enums;
 
-public enum OrderAssigStatus {
+public enum OrderAssignStatus {
     ASSIGNED, UNASSIGNED
 }
