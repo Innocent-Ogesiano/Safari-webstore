@@ -19,14 +19,11 @@ public class UserController {
     UriComponentsBuilder uriComponentsBuilder;
     private final UserServices userServices;
     private final JwtTokenUtil jwtTokenUtil;
-    private final JwtRequestFilter requestFilter;
 
     @Autowired
-    public UserController(UserServices userServices, JwtTokenUtil jwtTokenUtil,
-                          JwtRequestFilter requestFilter) {
+    public UserController(UserServices userServices, JwtTokenUtil jwtTokenUtil) {
         this.userServices = userServices;
         this.jwtTokenUtil = jwtTokenUtil;
-        this.requestFilter = requestFilter;
     }
 
     @GetMapping("/walletBalance")
