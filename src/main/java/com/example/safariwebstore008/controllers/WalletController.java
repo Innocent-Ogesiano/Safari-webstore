@@ -28,7 +28,7 @@ public class WalletController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping("/wallet")
+    @PostMapping("/walletPayment")
     public ResponseEntity<Wallet> makePaymentByWallet(@RequestBody MakePaymentDto makePaymentDto) throws InsufficientFundsException {
         Wallet wallet = walletService.makePaymentByWallet(makePaymentDto);
         return new ResponseEntity<>(wallet, HttpStatus.OK);
