@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserServices {
-    User updateCustomer(UpdateCustomerDto updateCustomerDto, String email) throws AccountNotFoundException;
 
     User signup(RegistrationDto registrationDto);
     User updatePassword(UpdatePasswordDto passwordRestDto, String email) throws Exception;

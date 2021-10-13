@@ -23,30 +23,32 @@ import java.util.Optional;
 public class WalletServiceImpl implements WalletService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    WalletRepository walletRepository;
+    private WalletRepository walletRepository;
 
     @Autowired
-    WalletTransactionRepository walletTransactionRepository;
+    private WalletTransactionRepository walletTransactionRepository;
 
     @Override
     public Wallet makePaymentByWallet(MakePaymentDto makePaymentDto) throws InsufficientFundsException {
         Optional<Wallet> optionalWallet = walletRepository.findWalletByUserEmail(makePaymentDto.getEmail());
+        System.out.println(optionalWallet.get().getWalletBalance());
         Wallet wallet = optionalWallet.get();
         Double walletBalance = wallet.getWalletBalance();
         Double costOfProduct = makePaymentDto.getAmount();
         if (walletBalance > costOfProduct) {
             Double newWalletBalance = walletBalance - costOfProduct;
             wallet.setWalletBalance(newWalletBalance);
+            walletRepository.save(wallet);
             WalletTransaction walletTransaction = new WalletTransaction();
             walletTransaction.setTransactionDate(makePaymentDto.getTransactionDate());
             walletTransaction.setTransactionType(TransactionType.MAKEPAYMENT);
             walletTransaction.setAmount(makePaymentDto.getAmount());
             walletTransaction.setWallet(wallet);
             walletTransactionRepository.save(walletTransaction);
-            return walletRepository.save(wallet);
+            return wallet;
         } else {
             throw new InsufficientFundsException("Your wallet balance is not sufficient to buy product, kindly fund your wallet");
         }

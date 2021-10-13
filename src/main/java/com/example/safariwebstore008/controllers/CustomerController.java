@@ -14,17 +14,17 @@ import javax.security.auth.login.AccountNotFoundException;
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
 
-    private final UserServices userServices;
+//    private final UserServices userServices;
 
-    @Autowired
-    public CustomerController(UserServices userServices) {
-        this.userServices = userServices;
-    }
-
-    @PutMapping("/edit/{userEmail}")
-    public ResponseEntity<User> editCustomer(@RequestBody UpdateCustomerDto editCustomerDto, @PathVariable("userEmail")String email) throws AccountNotFoundException {
-        User users = userServices.updateCustomer(editCustomerDto,email);
-        return new ResponseEntity<>(users, HttpStatus.CREATED);
-    }
+//    @Autowired
+//    public CustomerController(UserServices userServices) {
+//        this.userServices = userServices;
+//    }
+//
+//    @PutMapping("/edit/{userEmail}")
+//    public ResponseEntity<User> editCustomer(@RequestBody UpdateCustomerDto editCustomerDto, @PathVariable("userEmail")String email) throws AccountNotFoundException {
+//        User users = userServices.updateCustomer(editCustomerDto,email);
+//        return new ResponseEntity<>(users, HttpStatus.CREATED);
+//    }
 
 }
