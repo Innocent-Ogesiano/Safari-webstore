@@ -22,6 +22,7 @@ public class ForgotPasswordController {
 
     }
 
+
     @PostMapping("/resetPassword/{token}")
     public ResponseEntity<User> resetPassword(@PathVariable String token, @RequestBody ResetPasswordDto resetPasswordDto) {
         User user = forgotPasswordService.resetPassword(resetPasswordDto, token);

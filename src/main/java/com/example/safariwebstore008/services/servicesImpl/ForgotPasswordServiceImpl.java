@@ -70,7 +70,4 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 
     }
 
-
-
-
     }

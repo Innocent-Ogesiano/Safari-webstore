@@ -33,6 +33,7 @@ class ForgotPasswordServiceImplTest {
 
     @Test
     void resetPasswordSuccessfully() {
+
        Optional<User> user =  Optional.of(new User());
         user.get().setEmail("bigbaby@gmail.com");
         user.get().setPassword("0987");

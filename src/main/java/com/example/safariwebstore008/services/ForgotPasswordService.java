@@ -7,5 +7,6 @@ import javax.mail.MessagingException;
 
 public interface ForgotPasswordService {
     boolean generateResetToken(String email) throws MessagingException;
+
     User resetPassword(ResetPasswordDto resetPasswordDto, String token);
 }
