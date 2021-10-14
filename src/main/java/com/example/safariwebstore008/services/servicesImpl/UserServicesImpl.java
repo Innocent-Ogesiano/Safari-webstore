@@ -2,6 +2,8 @@ package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.RegistrationDto;
 import com.example.safariwebstore008.dto.UpdatePasswordDto;
+import com.example.safariwebstore008.dto.UpdateCustomerDto;
+import com.example.safariwebstore008.enums.Gender;
 import com.example.safariwebstore008.enums.Roles;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.repositories.UserRepository;
@@ -10,17 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.AccountNotFoundException;
+import java.util.Optional;
 @Service
 public class UserServicesImpl implements UserServices {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
+
     public UserServicesImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
-
 
     @Override
     public User updatePassword(UpdatePasswordDto updatePasswordDto, String email) throws Exception {
@@ -29,7 +32,7 @@ public class UserServicesImpl implements UserServices {
         userRepository.save(user1);
         return user1;
     }
-    
+
     @Override
     public User signup(RegistrationDto registrationDto) {
         User user = new User();
@@ -43,5 +46,22 @@ public class UserServicesImpl implements UserServices {
         user.setIsEnabled(true);
 
         return userRepository.save(user);
+    }
+
+
+    @Override
+    public User updateCustomer(UpdateCustomerDto updateCustomerDto, String email) throws AccountNotFoundException {
+        Optional<User> optionalUsers = userRepository.findUserByEmail(email);
+        if(optionalUsers.isPresent()){
+            User customer = optionalUsers.get();
+            customer.setFirstName(updateCustomerDto.getFirstName());
+            customer.setLastName(updateCustomerDto.getLastName());
+            customer.setEmail(updateCustomerDto.getEmail());
+            customer.setGender(updateCustomerDto.getGender());
+            customer.setDateOfBirth(updateCustomerDto.getDateOfBirth());
+            return userRepository.save(customer);
+        } else{
+            throw new AccountNotFoundException("User account not found");
+        }
     }
 }
