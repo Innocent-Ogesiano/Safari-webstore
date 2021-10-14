@@ -1,5 +1,6 @@
 package com.example.safariwebstore008.models;
 import com.example.safariwebstore008.common.BaseClass;
+import com.example.safariwebstore008.enums.DeliveryMethod;
 import com.example.safariwebstore008.enums.DeliveryStatus;
 import com.example.safariwebstore008.enums.OrderAssigStatus;
 import lombok.AllArgsConstructor;
@@ -18,22 +19,19 @@ import java.util.List;
 public class CustomerOrder extends BaseClass {
     @DateTimeFormat(pattern = "dd/mm/yyyy")
     private Date deliveryDate;
-     @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private DeliveryStatus deliveryStatus;
-
-    @OneToMany
-    private List<OrderDetails> eachOrderItem;
-
-    private Double sum;
-
     private Double deliveryFee;
     @ManyToOne
     private  ShipingAddress shippingAddress;
-    private OrderAssigStatus status = OrderAssigStatus.UNASSIGNED;
+    @Enumerated(EnumType.STRING)
+    private OrderAssigStatus status;
+    @Enumerated(EnumType.STRING)
+    private DeliveryMethod deliveryMethod;
     @ManyToOne
-    private User user;
-
-
-
+    private Cart cart;
+    private Double totalOrderAmount;
+    @ManyToOne
+    private User userModel;
 
 }

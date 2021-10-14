@@ -15,20 +15,41 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.safariwebstore008.configurations.JwtRequestFilter;
+import com.example.safariwebstore008.configurations.JwtTokenUtil;
+import com.example.safariwebstore008.dto.CheckoutDto;
+import com.example.safariwebstore008.models.CustomerOrder;
+import com.example.safariwebstore008.services.CustomerOrderService;
+import io.jsonwebtoken.ExpiredJwtException;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Slf4j
 @RestController
+@RequestMapping("/api/customer")
 public class UserController {
     UriComponentsBuilder uriComponentsBuilder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserServices userServices;
+    private CustomerOrderService customerOrderService;
 
     @Autowired
-    public UserController(UserServices userServices, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil) {
+    public UserController(UserServices userServices, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,CustomerOrderService customerOrderService) {
         this.userServices = userServices;
         this.jwtTokenUtil = jwtTokenUtil;
         this.authenticationManager = authenticationManager;
+        this.customerOrderService = customerOrderService;
+
     }
 
     @PutMapping("/updatePassword/{token}")
@@ -44,5 +65,17 @@ public class UserController {
         User user = userServices.updatePassword(updatePasswordDto, email);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
+
+  
+    @PostMapping("/checkout")
+    private ResponseEntity<?> createACustomerOrder(@RequestBody CheckoutDto checkoutDto){
+       CustomerOrder customerOrder=customerOrderService.createACustomerOrder(checkoutDto);
+       if(customerOrder!=null){
+       return new ResponseEntity<>(customerOrder,HttpStatus.CREATED);
+       }else{
+           return new ResponseEntity<>("User not allowed",HttpStatus.FORBIDDEN);
+       }
+    }
+    
 
 }
