@@ -28,6 +28,8 @@ public class ShipingAddress extends BaseClass {
 
     @NotNull(message = "phone number field is empty")
     private  String phoneNumber;
+    @NotNull(message = "address field is empty")
+    private String address;
     @ManyToOne
     private StatePronvices listOfState;
     @ManyToOne
