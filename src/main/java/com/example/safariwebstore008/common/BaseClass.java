@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 @MappedSuperclass
 @Data
-public abstract class BaseClass {
+public class BaseClass {
 
     public BaseClass(Long id) {
         this.id = id;
