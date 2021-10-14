@@ -19,7 +19,7 @@ public class CustomerOrderController {
     @Autowired
     private CustomerOrderServices customerOrderServices;
 
-    @GetMapping("/")
+    @GetMapping("/all")
     @ApiOperation(
             value = "Allows dispatch riders to view all deliveries",
             response = CustomerOrder.class)
