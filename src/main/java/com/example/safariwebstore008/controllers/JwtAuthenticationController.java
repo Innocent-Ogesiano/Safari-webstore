@@ -3,7 +3,7 @@ package com.example.safariwebstore008.controllers;
 import com.example.safariwebstore008.configurations.JwtTokenUtil;
 import com.example.safariwebstore008.dto.JwtRequest;
 import com.example.safariwebstore008.dto.JwtResponse;
-import com.example.safariwebstore008.dto.RegistrationDto;
+//import com.example.safariwebstore008.dto.RegistrationDto;
 //import com.example.safariwebstore008.services.servicesImpl.JwtUserDetailsService;
 import com.example.safariwebstore008.services.UserServices;
 import com.example.safariwebstore008.services.servicesImpl.JwtUserDetailsService;
@@ -46,8 +46,8 @@ public class JwtAuthenticationController {
         return ResponseEntity.ok(new JwtResponse(jwtToken));
     }
 
-    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+   @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public ResponseEntity<?> registerUser(@RequestBody RegistrationDto user) throws Exception {
         return ResponseEntity.ok(userServices.signup(user));
     }
-}
+
