@@ -2,7 +2,7 @@ package com.example.safariwebstore008;
 
 import com.example.safariwebstore008.enums.DeliveryStatus;
 import com.example.safariwebstore008.enums.Gender;
-import com.example.safariwebstore008.enums.OrderAssignStatus;
+import com.example.safariwebstore008.enums.OrderAssigStatus;
 import com.example.safariwebstore008.enums.Roles;
 import com.example.safariwebstore008.models.*;
 import com.example.safariwebstore008.repositories.AssignedOrderRepository;
@@ -49,20 +49,39 @@ public class AssignOrderToDispatchRiderTest {
 
         Date date = new Date(1980, 05, 01);
         final User customer = new User("Kim","Woods", date, "kim@gmail.com", Gender.MALE, Roles.CUSTOMER
-                ,"kim12",true);
+                ,"kim12",true,null);
+
+        //@NotNull(message = "first-name field is empty")
+        //    private String firstName;
+        //
+        //    @NotNull(message = "last-name field is empty")
+        //    private  String lastName;
+        //
+        //    @NotNull(message = "email field is empty")
+        //   @Email(message = "email is not properly formatted")
+        //    private  String email;
+        //
+        //    @NotNull(message = "phone number field is empty")
+        //    private  String phoneNumber;
+        //    @NotNull(message = "address field is empty")
+        //    private String address;
+        //    @ManyToOne
+        //    private StatePronvices state;
+        //    @ManyToOne
+        //   private User userModel;
+        //    private String RegionName;
+        //    private String CityName;
 
         Date deliveryDate= new Date(2021,9,20);
         DeliveryStatus deliveryStatus= DeliveryStatus.PENDING;
-        OrderDetails order1= new OrderDetails(2,4000.00,new Products("New Macbook",2000.00,"Red"));
-        OrderDetails order2= new OrderDetails(2,2000.00,new Products("New Watch",1000.00,"Black"));
         Double sum= 3000.00;
         Double deliveryFee= 500.00;
-        ShippingAddress shippingAddress= new ShippingAddress("Kim","Woods","kim@gmail.com","090124590",new StatePronvices("Lagos",List.of(new Cities("Apapa"),new Cities("Egbeda"))),customer,"Lagos","Egbeda");
-        OrderAssignStatus orderAssignStatus= OrderAssignStatus.UNASSIGNED;
+        ShippingAddress shippingAddress= new ShippingAddress("Kim","Woods","kim@gmail.com","090124590", "5,Olaniyi street",new StatePronvices("Lagos",List.of(new Cities("Apapa"),new Cities("Egbeda"))),customer,"Lagos","Egbeda");
+        OrderAssigStatus orderAssigStatus = OrderAssigStatus.UNASSIGNED;
 
        String regionName= shippingAddress.getRegionName();
 
-        CustomerOrder customerOrder= new CustomerOrder(1L,deliveryDate,deliveryStatus, List.of(order1,order2),sum,deliveryFee,shippingAddress,orderAssignStatus);
+        CustomerOrder customerOrder= new CustomerOrder(1L,deliveryDate,deliveryStatus,sum,deliveryFee,shippingAddress, orderAssigStatus);
 
         User dispatchRider= new User("Tim","Woods", date, "tim@gmail.com", Gender.MALE, Roles.DISPATCH_RIDER
                 ,"tim12",true, regionName);

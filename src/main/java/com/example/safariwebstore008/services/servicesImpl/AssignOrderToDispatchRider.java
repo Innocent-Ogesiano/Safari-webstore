@@ -1,7 +1,7 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
 
-import com.example.safariwebstore008.enums.OrderAssignStatus;
+import com.example.safariwebstore008.enums.OrderAssigStatus;
 import com.example.safariwebstore008.exceptions.DispatchRiderNotFoundException;
 import com.example.safariwebstore008.models.*;
 import com.example.safariwebstore008.repositories.*;
@@ -43,7 +43,7 @@ public class AssignOrderToDispatchRider {
           throw new DispatchRiderNotFoundException("Cannot find dispatch rider");
       }
       assignOrders.setUser(dispatchRider.get());
-      customerOrder.setStatus(OrderAssignStatus.ASSIGNED);
+      customerOrder.setStatus(OrderAssigStatus.ASSIGNED);
 
         return assignOrderRepository.save(assignOrders);
 

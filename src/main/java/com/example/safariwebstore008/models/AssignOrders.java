@@ -16,7 +16,8 @@ import javax.persistence.OneToOne;
 public class AssignOrders extends BaseClass {
     @ManyToOne
     private User user;
-
     @OneToOne
     private CustomerOrder orders;
+
+
 }

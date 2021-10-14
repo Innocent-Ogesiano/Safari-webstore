@@ -23,5 +23,5 @@ public class AdminAccountDetail extends BaseClass {
     @NotNull(message = "Account number field is empty")
     private  String accountNumber;
     @ManyToOne(cascade = CascadeType.REMOVE)
-    private Users user;
+    private User user;
 }

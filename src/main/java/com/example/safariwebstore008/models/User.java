@@ -17,6 +17,7 @@ import java.util.Date;
 @Builder
 @Data
 @Entity
+@AllArgsConstructor
 @Table(name = "users_table")
 public  class User extends BaseClass {
 
@@ -51,28 +52,5 @@ public  class User extends BaseClass {
     }
     public User(){
 
-    }
-
-    public User(String firstName, String lastName, Date dateOfBirth, String email, Gender gender, Roles roles, String password, Boolean isEnabled) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
-        this.gender = gender;
-        this.roles = roles;
-        this.password = password;
-        this.isEnabled = isEnabled;
-    }
-
-    public User(String firstName, String lastName, Date dateOfBirth, String email, Gender gender, Roles roles, String password, Boolean isEnabled, String dispatchRiderLocation) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
-        this.gender = gender;
-        this.roles = roles;
-        this.password = password;
-        this.isEnabled = isEnabled;
-        this.dispatchRiderLocation = dispatchRiderLocation;
     }
 }
