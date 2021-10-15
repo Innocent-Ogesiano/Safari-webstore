@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 @Service
 @Component
@@ -26,7 +27,6 @@ public class JwtUserDetailsService  implements  UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-<<<<<<< HEAD
         Optional<User> userModel = userRepository.findUserModelByEmail(userEmail);
         User user = userModel.get();
         if (user != null) {
@@ -38,15 +38,4 @@ public class JwtUserDetailsService  implements  UserDetailsService {
             throw new UsernameNotFoundException("User not Found");
         }
     }
-=======
-          Optional<User> userModel = userRepository.findUserByEmail(userEmail);
-          User user = userModel.orElseThrow(() ->
-                  new UsernameNotFoundException("No user found with email : " + userEmail));
-
-            if(user.getIsEnabled()){
-                return new MyUserDetails(user);
-            }
-            throw new AccountNotEnabledException("Account is disabled");
-        }
->>>>>>> 2013a07ed7073e91fb9692bda0375e4f0dab2a43
 }

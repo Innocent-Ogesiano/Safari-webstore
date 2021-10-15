@@ -28,12 +28,10 @@ public class ShipingAddress extends BaseClass {
 
     @NotNull(message = "phone number field is empty")
     private  String phoneNumber;
-    @NotNull(message = "address field is empty")
-    private String address;
     @ManyToOne
     private StatePronvices listOfState;
     @ManyToOne
-   private User userModel;
+   private Users userModel;
     private String RegionName;
     private String CityName;
 }

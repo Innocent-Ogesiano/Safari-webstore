@@ -1,11 +1,11 @@
 package com.example.safariwebstore008.dto;
 
-import com.example.safariwebstore008.models.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class MyUserDetails implements UserDetails {
 
@@ -14,20 +14,11 @@ public class MyUserDetails implements UserDetails {
     private boolean isEnabled;
     private List<GrantedAuthority> authorities;
 
-    public MyUserDetails(User user){
-        this.userName = user.getEmail();
-        this.password = user.getPassword();
-        this.isEnabled = user.getIsEnabled();
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        for (String userAuthority : user.getRoles().toString().split(",")) {
-            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userAuthority);
-            authorities.add(simpleGrantedAuthority);
-        }
-        this.authorities = authorities;
-    }
-
-    public MyUserDetails() {
-
+    public MyUserDetails(String userName, String password, boolean isEnabled, List<GrantedAuthority> authorities) {
+        this.userName = userName;
+        this.password = password;
+        this.isEnabled = isEnabled;
+        this.authorities= authorities;
     }
 
     @Override
@@ -64,4 +55,6 @@ public class MyUserDetails implements UserDetails {
     public boolean isEnabled() {
         return isEnabled;
     }
+
+
 }
