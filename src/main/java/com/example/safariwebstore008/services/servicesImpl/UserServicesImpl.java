@@ -43,5 +43,4 @@ public class UserServicesImpl implements UserServices {
         user.setIsEnabled(true);
 
         return userRepository.save(user);
-    }
 }
