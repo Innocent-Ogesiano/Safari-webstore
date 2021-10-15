@@ -23,6 +23,6 @@ public class Cart extends BaseClass {
     private  Integer quantity;
 
     @OneToOne
-    private User userModel;
+    private Users userModel;
 
 }
