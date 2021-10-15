@@ -43,6 +43,7 @@ public  class Users extends BaseClass {
     @Size(min = 8,message = "The password character is less than 8")
     private String password;
     private Boolean isEnabled;
+    private String dispatchRiderLocation;
 
     public Users(Long id) {
         super(id);

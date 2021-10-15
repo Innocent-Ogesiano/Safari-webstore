@@ -1,10 +1,16 @@
 package com.example.safariwebstore008.repositories;
 
 import com.example.safariwebstore008.models.Users;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.safariwebstore008.enums.Roles;
 
+import com.example.safariwebstore008.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<Users, Long> {
- Optional<Users>findUserModelByEmail(String email);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+ Optional<User> findUserByEmail(String email);
+
+ Optional<User> findByRolesAndDispatchRiderLocation(Roles userRole, String location);
 }

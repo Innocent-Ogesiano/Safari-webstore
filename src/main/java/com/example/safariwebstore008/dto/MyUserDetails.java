@@ -1,5 +1,7 @@
 package com.example.safariwebstore008.dto;
 
+import com.example.safariwebstore008.models.User;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,6 +21,9 @@ public class MyUserDetails implements UserDetails {
         this.password = password;
         this.isEnabled = isEnabled;
         this.authorities= authorities;
+    }
+
+    public <E> MyUserDetails(String email, String password, Boolean isEnabled, ArrayList<E> es) {
     }
 
     @Override

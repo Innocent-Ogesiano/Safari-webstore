@@ -28,6 +28,13 @@ public class JwtUserDetailsService  implements  UserDetailsService {
             if(user.getIsEnabled()){
             return new MyUserDetails(user.getEmail(),user.getPassword(), user.getIsEnabled(), new ArrayList<>());
             }
+
+        Optional<User> userModel = userRepository.findUserModelByEmail(userEmail);
+        User user = userModel.get();
+        if (user != null) {
+            if (user.getIsEnabled())
+                return new MyUserDetails(user.getEmail(), user.getPassword(), user.getIsEnabled(), new ArrayList<>());
+
             throw new AccountNotEnabledException("Account is disabled");
         }
         else{

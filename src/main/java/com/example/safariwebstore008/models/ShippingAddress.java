@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class ShipingAddress extends BaseClass {
+public class ShippingAddress extends BaseClass {
 
    @NotNull(message = "first-name field is empty")
     private String firstName;
@@ -29,7 +29,7 @@ public class ShipingAddress extends BaseClass {
     @NotNull(message = "phone number field is empty")
     private  String phoneNumber;
     @ManyToOne
-    private StatePronvices listOfState;
+    private StatePronvices state;
     @ManyToOne
    private Users userModel;
     private String RegionName;
