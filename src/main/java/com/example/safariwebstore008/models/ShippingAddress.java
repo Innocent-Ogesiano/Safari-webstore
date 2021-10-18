@@ -31,7 +31,14 @@ public class ShippingAddress extends BaseClass {
     @ManyToOne
     private StatePronvices state;
     @ManyToOne
-   private Users userModel;
+   private User userModel;
     private String RegionName;
     private String CityName;
+    private String homeAdddress;
+    public String toString() {
+        return  "Customer FullName : "+ this.firstName +"  "+ this.lastName +
+                "\n" + "Customer Phone Number: "+ this.phoneNumber+  "\n"+
+                "Customer Email-address : "+ this.email+"\n"+ "Customer Home Address : "+ this.homeAdddress +" "+ this.CityName +
+                " "+"Region"+this.RegionName ;
+    }
 }

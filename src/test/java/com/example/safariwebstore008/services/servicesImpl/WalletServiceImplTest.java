@@ -1,7 +1,6 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.FundWalletRequest;
-import com.example.safariwebstore008.dto.MakePaymentDto;
 import com.example.safariwebstore008.enums.TransactionType;
 import com.example.safariwebstore008.exceptions.InsufficientFundsException;
 import com.example.safariwebstore008.models.User;
@@ -9,7 +8,7 @@ import com.example.safariwebstore008.models.Wallet;
 import com.example.safariwebstore008.models.WalletTransaction;
 import com.example.safariwebstore008.repositories.UserRepository;
 import com.example.safariwebstore008.repositories.WalletRepository;
-import com.example.safariwebstore008.repositories.WalletTransactionRepository;
+import com.example.safariwebstore008.services.WalletTransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -51,7 +50,7 @@ class WalletServiceImplTest {
         wallet.setCreateDate(LocalDateTime.now());
         wallet.setUser(user);
 
-        MakePaymentDto makePaymentDto = new MakePaymentDto(3000.00, Date.valueOf(LocalDate.now()), "johndoe@gmail.com");
+        FundWalletRequest makePaymentDto = new FundWalletRequest(3000.00, Date.valueOf(LocalDate.now()), "johndoe@gmail.com");
 
         WalletTransaction walletTransaction = new WalletTransaction();
         walletTransaction.setWallet(wallet);

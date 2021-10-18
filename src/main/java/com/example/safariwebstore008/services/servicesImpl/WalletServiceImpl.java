@@ -1,19 +1,16 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
-import com.example.safariwebstore008.dto.MakePaymentDto;
-import com.example.safariwebstore008.enums.TransactionType;
-import com.example.safariwebstore008.exceptions.AccountNotEnabledException;
-import com.example.safariwebstore008.exceptions.InsufficientFundsException;
 import com.example.safariwebstore008.dto.FundWalletRequest;
 import com.example.safariwebstore008.enums.TransactionType;
 import com.example.safariwebstore008.exceptions.AccountNotEnabledException;
+import com.example.safariwebstore008.exceptions.InsufficientFundsException;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.models.Wallet;
 import com.example.safariwebstore008.models.WalletTransaction;
 import com.example.safariwebstore008.repositories.UserRepository;
 import com.example.safariwebstore008.repositories.WalletRepository;
-import com.example.safariwebstore008.repositories.WalletTransactionRepository;
 import com.example.safariwebstore008.services.WalletService;
+import com.example.safariwebstore008.services.WalletTransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +29,7 @@ public class WalletServiceImpl implements WalletService {
     private WalletTransactionRepository walletTransactionRepository;
 
     @Override
-    public Wallet makePaymentByWallet(MakePaymentDto makePaymentDto) throws InsufficientFundsException {
+    public Wallet makePaymentByWallet(FundWalletRequest makePaymentDto) throws InsufficientFundsException {
         Optional<Wallet> optionalWallet = walletRepository.findWalletByUserEmail(makePaymentDto.getEmail());
         System.out.println(optionalWallet.get().getWalletBalance());
         Wallet wallet = optionalWallet.get();

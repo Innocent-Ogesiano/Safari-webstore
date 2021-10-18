@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import com.example.safariwebstore008.models.User;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +29,8 @@ public class WalletTransaction extends BaseClass {
     @NotNull(message = "amount field is empty")
     private Double amount;
     @ManyToOne
-    private Users userModel;
+    private User userModel;
+    @ManyToOne
+    private  Wallet wallet;
 
 }

@@ -1,14 +1,21 @@
 package com.example.safariwebstore008.controllers;
 
 
-import com.example.safariwebstore008.dto.RegistrationDto;
+import com.example.safariwebstore008.configurations.JwtTokenUtil;
+import com.example.safariwebstore008.dto.UpdatePasswordDto;
 import com.example.safariwebstore008.models.User;
-import com.example.safariwebstore008.services.servicesImpl.UserServicesImpl;
+import com.example.safariwebstore008.services.UserServices;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Slf4j
 @RestController
@@ -16,17 +23,30 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 
 public class UserController {
+    UriComponentsBuilder uriComponentsBuilder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final UserServices userServices;
 
     @Autowired
-    private final UserServicesImpl userServices;
-
-    @PostMapping("/registercustomer")
-    public User registerNewUser(@RequestBody RegistrationDto registrationDto) {
-        return userServices.registerNewUser(registrationDto);
+    public UserController(UserServices userServices, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil) {
+        this.userServices = userServices;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.authenticationManager = authenticationManager;
     }
 
-    @PostMapping("/validate-registration-token/{tokenString}")
-    public User validateRegistrationToken(@PathVariable("tokenString") String tokenString){
-        return userServices.validateRegistrationToken(tokenString);
+    @PutMapping("/updatePassword/{token}")
+    private ResponseEntity<User> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto, @PathVariable("token") String token) throws Exception {
+        String email = jwtTokenUtil.getUserEmailFromToken(token);
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, updatePasswordDto.oldPassword));
+        } catch (DisabledException e) {
+            throw new Exception("USER_DISABLED", e);
+        } catch (BadCredentialsException e) {
+            throw new Exception("INVALID_CREDENTIALS", e);
+        }
+        User user = userServices.updatePassword(updatePasswordDto, email);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
+
 }

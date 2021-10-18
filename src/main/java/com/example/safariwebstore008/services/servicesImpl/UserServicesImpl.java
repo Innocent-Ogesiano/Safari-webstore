@@ -1,18 +1,19 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.RegistrationDto;
-import com.example.safariwebstore008.dto.UpdateCustomerDto;
+//import com.example.safariwebstore008.dto.UpdateCustomerDto;
 import com.example.safariwebstore008.dto.UpdatePasswordDto;
 import com.example.safariwebstore008.enums.Roles;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.repositories.UserRepository;
 import com.example.safariwebstore008.services.UserServices;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import javax.security.auth.login.AccountNotFoundException;
-import java.util.Optional;
+
 @Service
 public class UserServicesImpl implements UserServices {
+    @Autowired
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -30,6 +31,7 @@ public class UserServicesImpl implements UserServices {
         return user1;
     }
 
+
     @Override
     public User signup(RegistrationDto registrationDto) {
         User user = new User();
@@ -43,4 +45,5 @@ public class UserServicesImpl implements UserServices {
         user.setIsEnabled(true);
 
         return userRepository.save(user);
+    }
 }

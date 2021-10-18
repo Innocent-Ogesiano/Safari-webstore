@@ -9,7 +9,7 @@ import java.sql.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MakePaymentDto {
+public class FundWalletRequest {
     private Double amount;
     private Date transactionDate;
     private String email;

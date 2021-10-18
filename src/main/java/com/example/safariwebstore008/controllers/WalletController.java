@@ -1,14 +1,14 @@
 package com.example.safariwebstore008.controllers;
 
-import com.example.safariwebstore008.dto.MakePaymentDto;
+import com.example.safariwebstore008.dto.FundWalletRequest;
 import com.example.safariwebstore008.exceptions.InsufficientFundsException;
 import com.example.safariwebstore008.configurations.JwtTokenUtil;
-import com.example.safariwebstore008.dto.FundWalletRequest;
 import com.example.safariwebstore008.models.Wallet;
 import com.example.safariwebstore008.services.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @RestController
+@PreAuthorize("hasAuthority('CUSTOMER')")
 @RequestMapping("/user")
 public class WalletController {
 
@@ -29,7 +30,7 @@ public class WalletController {
     private JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/walletPayment")
-    public ResponseEntity<Wallet> makePaymentByWallet(@RequestBody MakePaymentDto makePaymentDto) throws InsufficientFundsException {
+    public ResponseEntity<Wallet> makePaymentByWallet(@RequestBody FundWalletRequest makePaymentDto) throws InsufficientFundsException {
         Wallet wallet = walletService.makePaymentByWallet(makePaymentDto);
         return new ResponseEntity<>(wallet, HttpStatus.OK);
     }

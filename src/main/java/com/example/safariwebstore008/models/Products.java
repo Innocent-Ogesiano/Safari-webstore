@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import java.util.List;
@@ -17,14 +18,15 @@ import java.util.List;
 @Entity
 @Table(name = "products_table")
 public class Products  extends BaseClass {
-
+    @NotEmpty(message="product name field is empty")
+     String productName;
     @NotNull(message = "Description field is empty")
     private String description;
 
     @NotNull(message = "product price field is empty")
     private Double price;
 
-    private String Colors;
+    private String colors;
 
 
 }

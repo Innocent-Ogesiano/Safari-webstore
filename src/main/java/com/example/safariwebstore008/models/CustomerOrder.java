@@ -6,9 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import com.example.safariwebstore008.models.ShippingAddress;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -27,30 +29,16 @@ public class CustomerOrder extends BaseClass {
 
     private Double deliveryFee;
     @ManyToOne
-    private  ShipingAddress shippingAddress;
-    private OrderAssigStatus status = OrderAssigStatus.UNASSIGNED;
-    @ManyToOne
-    private Users user;
-    private ShippingAddress shippingAddress;
+    private  ShippingAddress shippingAddress;
     @Enumerated(EnumType.STRING)
     private OrderAssigStatus status;
     @Enumerated(EnumType.STRING)
+    @OneToOne
     private DeliveryMethod deliveryMethod;
-    @ManyToOne
-    private Cart cart;
     private Double totalOrderAmount;
     @ManyToOne
-    private User user;
+    private  User user;
 
-    public CustomerOrder( Long id,Date deliveryDate, DeliveryStatus deliveryStatus,Double deliveryFee,Double totalOrderAmount, ShippingAddress shippingAddress, OrderAssigStatus status) {
-        super(id);
-        this.deliveryDate = deliveryDate;
-        this.deliveryStatus = deliveryStatus;
-        this.deliveryFee = deliveryFee;
-        this.shippingAddress = shippingAddress;
-        this.status = status;
-        this.totalOrderAmount= totalOrderAmount;
-    }
 
 
 }
