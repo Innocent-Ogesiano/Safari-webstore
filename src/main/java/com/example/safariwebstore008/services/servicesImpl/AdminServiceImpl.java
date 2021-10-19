@@ -1,7 +1,6 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.enums.Roles;
-import com.example.safariwebstore008.models.Products;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.repositories.UserRepository;
 import com.example.safariwebstore008.services.AdminService;
