@@ -1,6 +1,7 @@
 package com.example.safariwebstore008.controllers;
 
 import com.example.safariwebstore008.dto.FundWalletRequest;
+import com.example.safariwebstore008.dto.WithdrawalDto;
 import com.example.safariwebstore008.exceptions.InsufficientFundsException;
 import com.example.safariwebstore008.configurations.JwtTokenUtil;
 import com.example.safariwebstore008.models.Wallet;
@@ -48,6 +49,13 @@ public class WalletController {
         String email = jwtTokenUtil.getUserEmailFromToken(token);
         Double walletBalance = walletService.checkWalletBalance(email);
         return new ResponseEntity<>(walletBalance, HttpStatus.OK);
+    }
+
+    @PostMapping("/withdraw")
+    public Wallet withdrawFromWallet (HttpServletRequest request, @RequestBody WithdrawalDto withdrawalDto) throws InsufficientFundsException {
+        String token = request.getHeader("Authorization").substring(7);
+        String email = jwtTokenUtil.getUserEmailFromToken(token);
+        return walletService.withdrawFromWallet(withdrawalDto, email);
     }
 
 }
