@@ -2,7 +2,7 @@
 package com.example.safariwebstore008.services.servicesImpl;
 import com.example.safariwebstore008.dto.ProductFavouritesDto;
 import com.example.safariwebstore008.models.Favourites;
-import com.example.safariwebstore008.models.Products;
+import com.example.safariwebstore008.models.Product;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.repositories.FavouriteRepository;
 import com.example.safariwebstore008.repositories.ProductRepository;
@@ -30,10 +30,10 @@ import java.util.Optional;
             String productColor = productFavouritesDto.getProductColor();
             String productName = productFavouritesDto.getProductName();
 
-            Products products = productRepository.findProductsByColorsAndProductName(productColor,productName).get();
-            System.out.println(products.getPrice());
+            Product product = productRepository.findProductsByColorsAndProductName(productColor,productName).get();
+            System.out.println(product.getPrice());
             Optional<Favourites> optionalFavourites = favouriteRepository
-                    .findFavouritesByProductsAndUserModel(products,user);
+                    .findFavouritesByProductsAndUserModel(product,user);
             if(optionalFavourites.isPresent()){
                 favouriteRepository.delete(optionalFavourites.get());
                 message = "Product remove from the list of user favourite";
@@ -42,7 +42,7 @@ import java.util.Optional;
             else{
                 Favourites favourite = new Favourites();
 
-                favourite.setProducts(new ArrayList<>(){{add(products);}});
+                favourite.setProducts(new ArrayList<>(){{add(product);}});
                 favourite.setUserModel(user);
                 favouriteRepository.save(favourite);
                 message = "Product added to the list of user favourites";

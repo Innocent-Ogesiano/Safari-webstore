@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 
 @Data
@@ -21,6 +20,6 @@ public class ProductImages extends BaseClass {
     private String imageURl;
 
     @ManyToOne
-    private Products product;
+    private Product product;
 
 }

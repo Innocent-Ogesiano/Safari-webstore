@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -15,8 +16,8 @@ import javax.persistence.*;
 @Table(name = "cart_table")
 public class Cart extends BaseClass {
 
-    @ManyToOne
-    private  Products product;
+    @OneToMany
+    private List<Product> product;
 
     private  Double price;
 

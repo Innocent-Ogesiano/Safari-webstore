@@ -20,7 +20,7 @@ public class OrderDetails extends BaseClass {
     private  Double price;
 
     @OneToOne
-    private  Products product;
+    private Product product;
 
 
 }

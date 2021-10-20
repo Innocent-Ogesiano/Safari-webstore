@@ -1,7 +1,6 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.RegistrationDto;
-//import com.example.safariwebstore008.dto.UpdateCustomerDto;
 import com.example.safariwebstore008.dto.UpdatePasswordDto;
 import com.example.safariwebstore008.enums.Roles;
 import com.example.safariwebstore008.models.User;
@@ -13,15 +12,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServicesImpl implements UserServices {
-    @Autowired
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-
+    @Autowired
     public UserServicesImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
 
     @Override
     public User updatePassword(UpdatePasswordDto updatePasswordDto, String email) throws Exception {
@@ -30,8 +29,7 @@ public class UserServicesImpl implements UserServices {
         userRepository.save(user1);
         return user1;
     }
-
-
+    
     @Override
     public User signup(RegistrationDto registrationDto) {
         User user = new User();

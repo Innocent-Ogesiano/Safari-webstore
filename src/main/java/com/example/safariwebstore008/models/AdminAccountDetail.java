@@ -15,18 +15,13 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Entity
 @Table(name = "admin_account_details_table")
-class AdminAccountDetail extends BaseClass {
-
+public class AdminAccountDetail extends BaseClass {
     @NotNull(message = "bank name field is empty field is empty")
     private  String bankName;
-
     @Enumerated(EnumType.STRING)
-
     private AccountType accountType;
-
     @NotNull(message = "Account number field is empty")
     private  String accountNumber;
-
     @ManyToOne(cascade = CascadeType.REMOVE)
-   private  User user;
+    private User user;
 }

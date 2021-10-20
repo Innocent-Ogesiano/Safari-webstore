@@ -1,8 +1,15 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
+import com.example.safariwebstore008.dto.CheckoutDto;
+import com.example.safariwebstore008.enums.DeliveryMethod;
 import com.example.safariwebstore008.enums.DeliveryStatus;
+import com.example.safariwebstore008.enums.OrderAssigStatus;
 import com.example.safariwebstore008.models.CustomerOrder;
+import com.example.safariwebstore008.models.ShippingAddress;
+import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.repositories.CustomerOrderRepository;
+import com.example.safariwebstore008.repositories.ShippingRepository;
+import com.example.safariwebstore008.repositories.UserRepository;
 import com.example.safariwebstore008.services.CustomerOrderServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,13 +18,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
 public class CustomerOrderServicesImpl implements CustomerOrderServices {
-
+    @Autowired
+    private ShippingRepository shippingRepository;
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private CustomerOrderRepository customerOrderRepository;
 
@@ -49,5 +60,39 @@ public class CustomerOrderServicesImpl implements CustomerOrderServices {
         Page<CustomerOrder> pagedResult = customerOrderRepository.findByDeliveryStatus(DeliveryStatus.DELIVERED, pageable);
 
         return pagedResult.hasContent()?pagedResult.getContent():new ArrayList<>();
+    }
+    @Override
+    public CustomerOrder createACustomerOrder(CheckoutDto checkoutDto) {
+        CustomerOrder customerOrder = new CustomerOrder();
+        ShippingAddress shippingAddress = new ShippingAddress();
+        User user = checkoutDto.getCart().getUserModel();
+        customerOrder.setDeliveryFee(checkoutDto.getDeliveryFee());
+        customerOrder.setCart(checkoutDto.getCart());
+        customerOrder.setStatus(OrderAssigStatus.UNASSIGNED);
+        customerOrder.setDeliveryStatus(DeliveryStatus.PENDING);
+        customerOrder.setCreateDate(LocalDateTime.now());
+        customerOrder.setUserModel(user);
+        customerOrder.setTotalOrderAmount(checkoutDto.getTotalOrderAmount());
+        customerOrder.setDeliveryMethod(DeliveryMethod.DOOR_DELIVERY);
+        shippingAddress.setEmail(checkoutDto.getEmail());
+        shippingAddress.setAddress(checkoutDto.getAddress());
+        shippingAddress.setCityName(checkoutDto.getCity());
+        shippingAddress.setUserModel(user);
+        shippingAddress.setRegionName(checkoutDto.getProvince());
+        shippingAddress.setUpdateDate(LocalDateTime.now());
+        shippingAddress.setFirstName(checkoutDto.getFirstName());
+        shippingAddress.setLastName(checkoutDto.getLastName());
+        shippingAddress.setPhoneNumber(checkoutDto.getPhoneNumber());
+        shippingRepository.save(shippingAddress);
+        customerOrder.setShippingAddress(shippingAddress);
+        return customerOrderRepository.save(customerOrder);
+    }
+
+    @Override
+    public List<CustomerOrder> viewCustomerOrderHistory(String email, int pageNo, int pageSize, String sortBy) {
+        User userModel= userRepository.findUserByEmail(email).get();
+        Pageable pageable= PageRequest.of(pageNo,pageSize, Sort.by(sortBy).descending());
+        Page<CustomerOrder>customerOrderPage= customerOrderRepository.findAllByUserModel(userModel,pageable);
+        return customerOrderPage.toList();
     }
 }

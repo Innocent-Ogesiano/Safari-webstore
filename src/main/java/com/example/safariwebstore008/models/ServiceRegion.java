@@ -17,7 +17,7 @@ import java.util.List;
 public class ServiceRegion extends BaseClass {
    private String regionName;
    @OneToMany
-   private List<Cities>citiesWithinARegion;
+   private List<Cities>CitiesWithinARegion;
    @OneToOne
    private User user;
 }

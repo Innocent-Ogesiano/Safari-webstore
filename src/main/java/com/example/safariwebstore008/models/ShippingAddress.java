@@ -28,17 +28,13 @@ public class ShippingAddress extends BaseClass {
 
     @NotNull(message = "phone number field is empty")
     private  String phoneNumber;
+    @NotNull(message = "address field is empty")
+    private String address;
     @ManyToOne
-    private StatePronvices state;
+    private StatePronvices listOfState;
     @ManyToOne
    private User userModel;
     private String RegionName;
     private String CityName;
     private String homeAdddress;
-    public String toString() {
-        return  "Customer FullName : "+ this.firstName +"  "+ this.lastName +
-                "\n" + "Customer Phone Number: "+ this.phoneNumber+  "\n"+
-                "Customer Email-address : "+ this.email+"\n"+ "Customer Home Address : "+ this.homeAdddress +" "+ this.CityName +
-                " "+"Region"+this.RegionName ;
-    }
 }

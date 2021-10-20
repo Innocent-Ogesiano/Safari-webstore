@@ -1,15 +1,9 @@
 package com.example.safariwebstore008.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-import javax.validation.constraints.NotNull;
-
-@Getter
-@Setter
+@Data
 public class ResetPasswordDto {
-    @NotNull
-    String newPassword;
-    @NotNull
-    String token;
+
+    private String newPassword;
 }

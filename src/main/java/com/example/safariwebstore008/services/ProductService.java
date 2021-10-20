@@ -1,12 +1,11 @@
 package com.example.safariwebstore008.services;
 
-import com.example.safariwebstore008.models.Products;
+import com.example.safariwebstore008.models.Product;
 
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductService {
-    List<Products> adminViewAllProductsPaginated(int page, int size);
-    Products adminFetchParticularProduct(Long id);
+    List<Product> adminViewAllProductsPaginated(int page, int size);
+    Product adminFetchParticularProduct(Long id);
 }
