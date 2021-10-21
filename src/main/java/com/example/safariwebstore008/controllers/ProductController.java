@@ -20,9 +20,18 @@ public class ProductController {
         List<Product> response = productService.adminViewAllProductsPaginated(pageNo,pageSize);
         return  new ResponseEntity<>(response, HttpStatus.OK);
     }
-@GetMapping("/{productId}")
+    @GetMapping("/{productId}")
     public ResponseEntity<Product> viewASingleProduct(@PathVariable(value = "productId") Long productId){
         Product product = productService.adminFetchParticularProduct(productId);
         return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+
+    @GetMapping("/searchProduct")
+    public ResponseEntity<?> searchProductByKeyword(@RequestParam String keyword) {
+        List<Product> productList = productService.searchProductsByKeyword(keyword);
+        if (productList.size() == 0) {
+            return ResponseEntity.ok("No matching product found");
+        }
+        return ResponseEntity.ok(productList);
     }
 }

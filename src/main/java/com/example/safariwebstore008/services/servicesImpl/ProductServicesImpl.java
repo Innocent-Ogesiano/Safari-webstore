@@ -25,4 +25,9 @@ public class ProductServicesImpl implements ProductService {
     public Product adminFetchParticularProduct(Long id) {
         return productRepository.getById(id);
     }
+
+    @Override
+    public List<Product> searchProductsByKeyword(String keyword) {
+        return productRepository.findProductsByProductNameContaining(keyword.toLowerCase());
+    }
 }
