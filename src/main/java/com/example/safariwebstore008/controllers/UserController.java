@@ -2,8 +2,10 @@ package com.example.safariwebstore008.controllers;
 
 import com.example.safariwebstore008.configurations.JwtTokenUtil;
 import com.example.safariwebstore008.dto.UpdatePasswordDto;
+import com.example.safariwebstore008.models.Product;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.services.CustomerOrderServices;
+import com.example.safariwebstore008.services.FavouriteService;
 import com.example.safariwebstore008.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,14 +33,18 @@ public class UserController {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenUtil jwtTokenUtil;
     private final UserServices userServices;
-    private CustomerOrderServices customerOrderService;
+    private final CustomerOrderServices customerOrderService;
+    private final FavouriteService favouriteService;
 
     @Autowired
-    public UserController(UserServices userServices, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil,CustomerOrderServices customerOrderService) {
+    public UserController(UserServices userServices, AuthenticationManager authenticationManager,
+                          JwtTokenUtil jwtTokenUtil,CustomerOrderServices customerOrderService,FavouriteService favouriteService) {
         this.userServices = userServices;
         this.jwtTokenUtil = jwtTokenUtil;
         this.authenticationManager = authenticationManager;
         this.customerOrderService = customerOrderService;
+        this.favouriteService = favouriteService;
+
 
     }
 
@@ -81,4 +87,21 @@ public class UserController {
          return new ResponseEntity<>(customerOrderPage,HttpStatus.ACCEPTED);
 
     }
+
+    @GetMapping("/viewFavouriteProducts")
+    private ResponseEntity<List<Product>> viewAllProductsFromFavourite(HttpServletRequest request){
+        String token = request.getHeader("Authorization").substring(7);
+        String email = jwtTokenUtil.getUserEmailFromToken(token);
+        List<Product> productList = favouriteService.viewAllProductFromFavourite(email);
+        return new ResponseEntity<>(productList,HttpStatus.OK);
+    }
+
+    @GetMapping("/viewProductFromFavourite/{id}")
+    private ResponseEntity<Product> viewAProductFromFavourite(@PathVariable Long id, HttpServletRequest request){
+        String token = request.getHeader("Authorization").substring(7);
+        String email = jwtTokenUtil.getUserEmailFromToken(token);
+        Product product = favouriteService.viewProductFromFavourite(id,email);
+        return new ResponseEntity<>(product,HttpStatus.OK);
+    }
+
 }

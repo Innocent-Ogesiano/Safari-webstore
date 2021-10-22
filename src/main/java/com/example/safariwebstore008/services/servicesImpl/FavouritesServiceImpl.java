@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
     @Service
@@ -48,5 +49,23 @@ import java.util.Optional;
                 message = "Product added to the list of user favourites";
                 return message;
             }
+        }
+
+        @Override
+        public Product viewProductFromFavourite(Long id, String email) {
+            Product foundProduct = new Product();
+             Favourites favourites = favouriteRepository.findFavouritesByUserModelEmail(email);
+             List<Product> listOfProduct = favourites.getProducts();
+             for (Product product : listOfProduct) {
+                 if (product.getId() == id) {
+                     foundProduct = product;
+                 }
+             }
+             return foundProduct;
+        }
+
+        @Override
+        public List<Product> viewAllProductFromFavourite(String email) {
+            return favouriteRepository.findFavouritesByUserModelEmail(email).getProducts();
         }
     }

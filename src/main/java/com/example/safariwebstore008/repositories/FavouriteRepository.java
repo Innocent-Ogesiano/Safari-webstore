@@ -11,4 +11,6 @@ import java.util.Optional;
     @Repository
     public interface FavouriteRepository extends JpaRepository<Favourites,Long> {
         Optional<Favourites> findFavouritesByProductsAndUserModel(Product product, User user);
+        Favourites findFavouritesByUserModelEmail(String email);
+
     }

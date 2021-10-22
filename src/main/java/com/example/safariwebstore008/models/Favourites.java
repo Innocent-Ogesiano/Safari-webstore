@@ -17,7 +17,7 @@ import java.util.List;
 public class Favourites extends BaseClass {
 
 
-    @ManyToOne
+    @OneToOne
     private User userModel;
     @OneToMany
     private List<Product> products;
