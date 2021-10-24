@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @PreAuthorize("hasAuthority('CUSTOMER')")
@@ -57,5 +58,29 @@ public class CustomerOrderController {
 
         List<CustomerOrder> customerDelivered = customerOrderServices.getAllCompletedDeliveries(pageNo, pageSize, sortBy);
         return new ResponseEntity<>(customerDelivered, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/order-assigned")
+    @ApiOperation(
+            value = "Allows Admin to view orders that have been assigned to dispatch rider",
+            response = CustomerOrder.class)
+    public ResponseEntity<Map<String, Object>> getAllOrdersAssignedToDispatch(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "5") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy){
+
+        return customerOrderServices.getAllAssignedOrder(pageNo, pageSize, sortBy);
+    }
+
+    @GetMapping("/order-unassigned")
+    @ApiOperation(
+            value = "Allows Admin to view orders that have not been assigned to dispatch rider",
+            response = CustomerOrder.class)
+    public ResponseEntity<Map<String, Object>> getAllOrdersUnassignedToDispatch(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "5") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy){
+
+        return customerOrderServices.getAllUnassignedOrder(pageNo, pageSize, sortBy);
     }
 }

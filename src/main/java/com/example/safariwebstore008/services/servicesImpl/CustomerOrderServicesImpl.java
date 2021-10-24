@@ -16,11 +16,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -94,5 +98,32 @@ public class CustomerOrderServicesImpl implements CustomerOrderServices {
         Pageable pageable= PageRequest.of(pageNo,pageSize, Sort.by(sortBy).descending());
         Page<CustomerOrder>customerOrderPage= customerOrderRepository.findAllByUserModel(userModel,pageable);
         return customerOrderPage.toList();
+    }
+
+    @Override
+    public ResponseEntity<Map<String, Object>> getAllAssignedOrder(int pageNo, int pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+        Page<CustomerOrder> orderPage = customerOrderRepository.findByStatus(OrderAssigStatus.ASSIGNED, pageable);
+        return getMapResponseEntity(orderPage);
+    }
+
+    @Override
+    public ResponseEntity<Map<String, Object>> getAllUnassignedOrder(int pageNo, int pageSize, String sortBy) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
+        Page<CustomerOrder> orderPage = customerOrderRepository.findByStatus(OrderAssigStatus.UNASSIGNED, pageable);
+        return getMapResponseEntity(orderPage);
+    }
+
+    private ResponseEntity<Map<String, Object>> getMapResponseEntity(Page<CustomerOrder> orderPage) {
+        if (orderPage.getContent().isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        Map<String, Object> response = new HashMap<>();
+        response.put("customerOrder", orderPage.getContent());
+        response.put("currentPage", orderPage.getNumber());
+        response.put("totalItems", orderPage.getTotalElements());
+        response.put("totalPage", orderPage.getTotalPages());
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
