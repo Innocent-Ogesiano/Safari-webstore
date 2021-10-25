@@ -48,8 +48,9 @@ public class UserController {
 
     }
 
-    @PutMapping("/updatePassword/{token}")
-    private ResponseEntity<User> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto, @PathVariable("token") String token) throws Exception {
+    @PutMapping("/updatePassword")
+    private ResponseEntity<User> updatePassword(@RequestBody UpdatePasswordDto updatePasswordDto, HttpServletRequest request) throws Exception {
+        String token = request.getHeader("Authorization").substring(7);
         String email = jwtTokenUtil.getUserEmailFromToken(token);
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, updatePasswordDto.oldPassword));
