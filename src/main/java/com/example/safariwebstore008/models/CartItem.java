@@ -5,22 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.math.BigInteger;
-
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "order_details_table")
-public class OrderDetails extends BaseClass {
+public class CartItem extends BaseClass {
 
     private Integer quantity;
 
     private BigInteger price;
-
     @OneToOne
     private Product product;
 
+    @ManyToOne
+    private Cart cart;
 }

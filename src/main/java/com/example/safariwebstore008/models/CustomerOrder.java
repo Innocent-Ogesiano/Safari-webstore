@@ -28,8 +28,6 @@ public class CustomerOrder extends BaseClass {
     private OrderAssigStatus status;
     @Enumerated(EnumType.STRING)
     private DeliveryMethod deliveryMethod;
-    @ManyToOne
-    private Cart cart;
     private Double totalOrderAmount;
     @ManyToOne
     @JsonIgnore

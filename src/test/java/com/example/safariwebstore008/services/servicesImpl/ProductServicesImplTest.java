@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,17 +45,17 @@ class ProductServicesImplTest {
         Product product = new Product();
         product.setProductName("Wrist watch");
         product.setDescription("time piece for all ages");
-        product.setPrice(5000D);
+        product.setPrice(BigInteger.valueOf(5000));
         repository.save(product);
         Product product1 = new Product();
         product1.setProductName("ankle watch");
         product1.setDescription("time piece for all ages");
-        product1.setPrice(5000D);
+        product1.setPrice(BigInteger.valueOf(5000));
         repository.save(product1);
         Product product2 = new Product();
         product2.setProductName("Shirt");
         product2.setDescription("time piece for all ages");
-        product2.setPrice(5000D);
+        product2.setPrice(BigInteger.valueOf(5000));
         repository.save(product2);
         List<Product> returnedList = repository.findProductsByProductNameContaining("watch");
         assertThat(returnedList.size()).isEqualTo(2);

@@ -71,7 +71,6 @@ public class CustomerOrderServicesImpl implements CustomerOrderServices {
         ShippingAddress shippingAddress = new ShippingAddress();
         User user = checkoutDto.getCart().getUserModel();
         customerOrder.setDeliveryFee(checkoutDto.getDeliveryFee());
-        customerOrder.setCart(checkoutDto.getCart());
         customerOrder.setStatus(OrderAssigStatus.UNASSIGNED);
         customerOrder.setDeliveryStatus(DeliveryStatus.PENDING);
         customerOrder.setCreateDate(LocalDateTime.now());

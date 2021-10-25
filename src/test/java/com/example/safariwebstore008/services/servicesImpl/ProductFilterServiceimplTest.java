@@ -22,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigInteger;
 import java.util.*;
 import java.util.function.Function;
 
@@ -47,16 +48,12 @@ class ProductFilterServiceimplTest {
         Product product = new Product();
         product.setId(1L);
         product.setProductName("necklace");
-        product.setPrice(300.0);
+        product.setPrice(BigInteger.valueOf(300));
         product.setDescription("for the young and old");
         product.setColors("blue");
         List<Product> productList = new ArrayList<>();
         productList.add(product);
         final Page<Product> page = new PageImpl<>(productList);
-
-
-
-
         ProductPage productPage = new ProductPage(0, 10, Sort.Direction.ASC, "id");
         ProductSearchCriteria productSearchCriteria = new ProductSearchCriteria("blue", "shoes",
                 "medium", "300");

@@ -11,6 +11,7 @@ import com.example.safariwebstore008.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -29,6 +30,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@PreAuthorize("hasAuthority('CUSTOMER')")
 @RequestMapping("/api/customer")
 public class UserController {
     UriComponentsBuilder uriComponentsBuilder;

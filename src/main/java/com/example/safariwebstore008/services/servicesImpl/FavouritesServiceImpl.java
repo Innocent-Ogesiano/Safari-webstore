@@ -18,27 +18,21 @@ import java.util.Optional;
     @Service
     public class FavouritesServiceImpl implements FavouriteService {
         @Autowired
-        FavouriteRepository favouriteRepository;
+       private FavouriteRepository favouriteRepository;
         @Autowired
-        ProductRepository productRepository;
+       private ProductRepository productRepository;
         @Autowired
-        UserRepository userRepository;
+       private UserRepository userRepository;
         @Override
-        public String findFavouritesByProductsAndUserModel(String email, ProductFavouritesDto productFavouritesDto) {
-            String message;
+        public boolean findFavouritesByProductsAndUserModel(String email, Long id) {
             User user = userRepository.findUserByEmail(email).get();
-            System.out.println(user.getFirstName());
-            String productColor = productFavouritesDto.getProductColor();
-            String productName = productFavouritesDto.getProductName();
-
-            Product product = productRepository.findProductsByColorsAndProductName(productColor,productName).get();
+            Product product = productRepository.findById(id).get();
             System.out.println(product.getPrice());
             Optional<Favourites> optionalFavourites = favouriteRepository
                     .findFavouritesByProductsAndUserModel(product,user);
             if(optionalFavourites.isPresent()){
                 favouriteRepository.delete(optionalFavourites.get());
-                message = "Product remove from the list of user favourite";
-                return message;
+                return false;
             }
             else{
                 Favourites favourite = new Favourites();
@@ -46,9 +40,13 @@ import java.util.Optional;
                 favourite.setProducts(new ArrayList<>(){{add(product);}});
                 favourite.setUserModel(user);
                 favouriteRepository.save(favourite);
-                message = "Product added to the list of user favourites";
-                return message;
+                return true;
             }
+        }
+
+        @Override
+        public String findFavouritesByProductsAndUserModel(String email, ProductFavouritesDto productFavouritesDto) {
+            return null;
         }
 
         @Override

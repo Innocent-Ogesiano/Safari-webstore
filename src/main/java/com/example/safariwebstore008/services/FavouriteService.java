@@ -10,6 +10,7 @@ import java.util.List;
 
     @Service
     public interface FavouriteService {
+       boolean findFavouritesByProductsAndUserModel(String email, Long id);
         String findFavouritesByProductsAndUserModel(String email, ProductFavouritesDto productFavouritesDto);
         Product viewProductFromFavourite(Long id, String email);
         List<Product> viewAllProductFromFavourite(String email);

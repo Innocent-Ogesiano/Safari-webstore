@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import java.math.BigInteger;
 import java.util.List;
 
 
@@ -25,7 +26,7 @@ public class Product extends BaseClass {
     private String description;
 
     @NotNull(message = "product price field is empty")
-    private Double price;
+    private BigInteger price;
 
     private String colors;
 

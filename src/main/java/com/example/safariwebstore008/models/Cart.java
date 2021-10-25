@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.util.List;
 
 
@@ -16,14 +17,8 @@ import java.util.List;
 @Table(name = "cart_table")
 public class Cart extends BaseClass {
 
-    @OneToMany
-    private List<Product> product;
-
-    private  Double price;
-
-    private  Integer quantity;
-
+    @OneToMany(mappedBy = "cart",cascade = CascadeType.ALL)
+    private List<CartItem> cartItemList;
     @OneToOne
     private User userModel;
-
 }
