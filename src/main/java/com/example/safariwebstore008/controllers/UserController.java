@@ -2,6 +2,7 @@ package com.example.safariwebstore008.controllers;
 
 import com.example.safariwebstore008.configurations.JwtTokenUtil;
 import com.example.safariwebstore008.dto.UpdatePasswordDto;
+import com.example.safariwebstore008.dto.UpdateUserDto;
 import com.example.safariwebstore008.models.Product;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.services.CustomerOrderServices;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.security.auth.login.AccountNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -104,5 +106,12 @@ public class UserController {
         Product product = favouriteService.viewProductFromFavourite(id,email);
         return new ResponseEntity<>(product,HttpStatus.OK);
     }
+
+    @PutMapping("/edit/{userEmail}")
+    public ResponseEntity<User> editCustomer(@RequestBody UpdateUserDto editUserDto, @PathVariable("userEmail")String email) throws AccountNotFoundException {
+        User users = userServices.updateUser(editUserDto,email);
+        return new ResponseEntity<>(users, HttpStatus.CREATED);
+    }
+
 
 }
