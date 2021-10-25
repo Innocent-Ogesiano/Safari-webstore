@@ -1,5 +1,4 @@
 package com.example.safariwebstore008.controllers;
-
 import com.example.safariwebstore008.models.Product;
 import com.example.safariwebstore008.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import java.util.List;
 public class ProductController {
     @Autowired
     ProductService productService;
+
     @GetMapping
     public ResponseEntity<List<Product>> viewAllProducts(@RequestParam(value = "pageNo", required = false, defaultValue = "0") int pageNo,
                                                          @RequestParam (value = "pageSize", required = false, defaultValue = "4") int pageSize){
