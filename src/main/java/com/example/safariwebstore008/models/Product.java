@@ -29,6 +29,4 @@ public class Product extends BaseClass {
     private BigInteger price;
 
     private String colors;
-
-
 }

@@ -19,7 +19,7 @@ public class Favourites extends BaseClass {
 
     @OneToOne
     private User userModel;
-    @OneToMany
+    @ManyToMany
     private List<Product> products;
 
 }
