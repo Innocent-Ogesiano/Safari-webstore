@@ -4,6 +4,7 @@ import com.example.safariwebstore008.dto.CheckoutDto;
 import com.example.safariwebstore008.enums.DeliveryMethod;
 import com.example.safariwebstore008.enums.DeliveryStatus;
 import com.example.safariwebstore008.enums.OrderAssigStatus;
+import com.example.safariwebstore008.exceptions.CustomerOrderNotFoundException;
 import com.example.safariwebstore008.models.CustomerOrder;
 import com.example.safariwebstore008.models.ShippingAddress;
 import com.example.safariwebstore008.models.User;
@@ -124,5 +125,10 @@ public class CustomerOrderServicesImpl implements CustomerOrderServices {
         response.put("totalPage", orderPage.getTotalPages());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
+    public CustomerOrder findParticularCustomerOrder(Long id) {
+        return customerOrderRepository.findById(id).orElseThrow(() -> new CustomerOrderNotFoundException(id));
     }
 }

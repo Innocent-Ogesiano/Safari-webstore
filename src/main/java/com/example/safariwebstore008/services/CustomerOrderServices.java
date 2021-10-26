@@ -16,4 +16,5 @@ public interface CustomerOrderServices {
     ResponseEntity<Map<String, Object>> getAllAssignedOrder(int pageNo, int pageSize, String sortBy);
     ResponseEntity<Map<String, Object>> getAllUnassignedOrder(int pageNo, int pageSize, String sortBy);
 
+    CustomerOrder findParticularCustomerOrder(Long id);
 }

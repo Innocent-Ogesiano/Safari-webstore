@@ -108,4 +108,14 @@ private ShippingRepository shippingRepository;
         assertEquals(2,customerOrderList.size());
 
     }
+
+    @Test
+    public void findCustomerOrderTest() {
+
+        CustomerOrder customerOrder = new CustomerOrder();
+        customerOrder.setId(1L);
+        customerOrder.setDeliveryFee(500.0);
+        when(customerOrderRepository.findById(1L)).thenReturn(java.util.Optional.of(customerOrder));
+        assertEquals(customerOrder, customerOrderService.findParticularCustomerOrder(1L));
+    }
 }

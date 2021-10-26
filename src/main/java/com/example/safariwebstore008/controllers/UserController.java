@@ -116,4 +116,10 @@ public class UserController {
     }
 
 
+    @GetMapping("/customerOrders/{id}")
+    public ResponseEntity<CustomerOrder> getCustomerOrder(@PathVariable Long id){
+        CustomerOrder customerOrder = customerOrderService.findParticularCustomerOrder(id);
+        return new ResponseEntity<>(customerOrder, HttpStatus.OK);
+    }
+
 }
