@@ -1,18 +1,24 @@
 package com.example.safariwebstore008.controllers;
-
+import com.example.safariwebstore008.dto.FundWalletRequest;
+import com.example.safariwebstore008.dto.WithdrawalDto;
+import com.example.safariwebstore008.exceptions.InsufficientFundsException;
 import com.example.safariwebstore008.configurations.JwtTokenUtil;
 import com.example.safariwebstore008.dto.FundWalletRequest;
 import com.example.safariwebstore008.models.Wallet;
 import com.example.safariwebstore008.services.WalletService;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.security.Principal;
 
 @RestController
 @PreAuthorize("hasAuthority('CUSTOMER')")
@@ -23,8 +29,8 @@ public class WalletController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @PostMapping("/wallet")
-    public ResponseEntity<Wallet> fundWallet(@RequestBody FundWalletRequest fundWalletRequest){
-        System.out.println(fundWalletRequest);
+    public ResponseEntity<Wallet> fundWallet(@RequestBody FundWalletRequest fundWalletRequest,
+                                             HttpServletRequest request){
         Wallet wallet = walletService.topUpWalletAccount(fundWalletRequest);
         return new ResponseEntity<>(wallet,HttpStatus.OK);
     }
@@ -35,6 +41,15 @@ public class WalletController {
         String email = jwtTokenUtil.getUserEmailFromToken(token);
         Double walletBalance = walletService.checkWalletBalance(email);
         return new ResponseEntity<>(walletBalance, HttpStatus.OK);
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<?> withdrawFromWallet ( @RequestBody WithdrawalDto withdrawalDto,HttpServletRequest request) throws InsufficientFundsException {
+        Principal principal = request.getUserPrincipal();
+        String email = principal.getName();
+        walletService.withdrawFromWallet(withdrawalDto, email);
+        return new ResponseEntity<Object>(HttpStatus.OK);
+
     }
 
 }

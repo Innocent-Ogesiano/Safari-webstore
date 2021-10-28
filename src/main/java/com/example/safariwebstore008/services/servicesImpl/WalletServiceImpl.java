@@ -1,8 +1,10 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.FundWalletRequest;
+import com.example.safariwebstore008.dto.WithdrawalDto;
 import com.example.safariwebstore008.enums.TransactionType;
 import com.example.safariwebstore008.exceptions.AccountNotEnabledException;
+import com.example.safariwebstore008.exceptions.InsufficientFundsException;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.models.Wallet;
 import com.example.safariwebstore008.models.WalletTransaction;
@@ -13,6 +15,8 @@ import com.example.safariwebstore008.services.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -23,6 +27,48 @@ public class WalletServiceImpl implements WalletService {
     private WalletRepository walletRepository;
     @Autowired
     private WalletTransactionRepository walletTransactionRepository;
+
+    @Override
+    public Wallet makePaymentByWallet(FundWalletRequest makePaymentDto) throws InsufficientFundsException {
+        Optional<Wallet> optionalWallet = walletRepository.findWalletByUserEmail(makePaymentDto.getEmail());
+        Wallet wallet = optionalWallet.get();
+        Double walletBalance = wallet.getWalletBalance();
+        Double costOfProduct = makePaymentDto.getAmount();
+        if (walletBalance > costOfProduct) {
+            Double newWalletBalance = walletBalance - costOfProduct;
+            wallet.setWalletBalance(newWalletBalance);
+            walletRepository.save(wallet);
+            WalletTransaction walletTransaction = new WalletTransaction();
+            walletTransaction.setTransactionDate(makePaymentDto.getTransactionDate());
+            walletTransaction.setTransactionType(TransactionType.MAKEPAYMENT);
+            walletTransaction.setAmount(makePaymentDto.getAmount());
+            walletTransaction.setWallet(wallet);
+            walletTransactionRepository.save(walletTransaction);
+            return wallet;
+        } else {
+            throw new InsufficientFundsException("Your wallet balance is not sufficient to buy product, kindly fund your wallet");
+        }
+    }
+
+    @Override
+    public Wallet withdrawFromWallet(WithdrawalDto withdrawalDto, String email) throws InsufficientFundsException {
+        Wallet wallet = walletRepository.findWalletByUserEmail(email).get();
+        if(wallet.getWalletBalance() > withdrawalDto.getAmount()){
+            Double balance = wallet.getWalletBalance() - withdrawalDto.getAmount();
+            wallet.setWalletBalance(balance);
+            walletRepository.save(wallet);
+            WalletTransaction walletTransaction = new WalletTransaction();
+            walletTransaction.setTransactionType(TransactionType.WITHDRAWAL);
+            walletTransaction.setTransactionDate(Date.valueOf(LocalDate.now()));
+            walletTransaction.setAmount(withdrawalDto.getAmount());
+            walletTransaction.setWallet(wallet);
+            walletTransactionRepository.save(walletTransaction);
+        }else {
+            throw new InsufficientFundsException("insufficient Fund");
+        }
+        return wallet;
+    }
+
 
     @Override
     public Wallet topUpWalletAccount(FundWalletRequest fundWalletRequest) {

@@ -1,7 +1,9 @@
 package com.example.safariwebstore008.services.servicesImpl;
 
 import com.example.safariwebstore008.dto.FundWalletRequest;
+import com.example.safariwebstore008.dto.WithdrawalDto;
 import com.example.safariwebstore008.enums.TransactionType;
+import com.example.safariwebstore008.exceptions.InsufficientFundsException;
 import com.example.safariwebstore008.models.User;
 import com.example.safariwebstore008.models.Wallet;
 import com.example.safariwebstore008.models.WalletTransaction;
@@ -17,11 +19,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigInteger;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
-
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -38,11 +42,9 @@ class WalletServiceImplTest {
     private WalletServiceImpl walletService;
 
  @Test
- void fundWalletSuccessfully(){
-     LocalDateTime localDateTime= LocalDateTime.now();
-
-     Date date = Date.valueOf(LocalDate.now());
-
+ void fundWalletSuccessfully() throws InsufficientFundsException {
+   LocalDateTime localDateTime = LocalDateTime.now();
+           Date date = Date.valueOf(LocalDate.now());
      Optional<Wallet> wallet = Optional.of(new Wallet());
      wallet.get().setWalletBalance(0.00);
      wallet.get().setCreateDate(localDateTime);
@@ -64,7 +66,7 @@ class WalletServiceImplTest {
      walletTransaction.setWallet(wallet.get());
      walletTransaction.setAmount(fundWalletRequest.getAmount());
      walletTransaction.setTransactionDate(date);
-    // walletTransaction.setUserModel(user.get());
+     // walletTransaction.setUserModel(user.get());
      walletTransaction.setTransactionType(TransactionType.FUNDWALLET);
 
 
@@ -76,11 +78,9 @@ class WalletServiceImplTest {
 
 
 
-
-
      Assertions.assertThat(wallet1.getWalletBalance()).isNotNull();
      Assertions.assertThat(wallet1.getWalletBalance()).isEqualTo(fundWalletRequest.getAmount());
- }
+    }
 
     @Test
     void checkWalletBalance() {
@@ -95,4 +95,15 @@ class WalletServiceImplTest {
         assertEquals(walletBalance, wallet.getWalletBalance());
     }
 
+    @Test
+    void withdrawFromWallet() throws InsufficientFundsException {
+        String email = "og@gmail.com";
+        WithdrawalDto withdrawalDto = new WithdrawalDto();
+        withdrawalDto.setAmount(2000.0);
+        Wallet wallet = new Wallet();
+        wallet.setWalletBalance(3000.0);
+        when(walletRepository.findWalletByUserEmail(email)).thenReturn(Optional.of(wallet));
+        Wallet wallet1 = walletService.withdrawFromWallet(withdrawalDto, email);
+        assertThat(wallet1.getWalletBalance()).isEqualTo(1000.0);
+    }
 }
