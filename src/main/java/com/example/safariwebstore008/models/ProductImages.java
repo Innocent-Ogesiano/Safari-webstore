@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import java.util.List;
 
 
 @Data
@@ -21,5 +23,7 @@ public class ProductImages extends BaseClass {
 
     @ManyToOne
     private Product product;
+
+
 
 }

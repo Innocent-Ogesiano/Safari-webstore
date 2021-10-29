@@ -12,5 +12,6 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findProductsByProductNameContaining(String keyword);
-    Optional<Product> findProductsByColorsAndProductName(String color, String productName);
+    Optional<Product> findProductsByColorAndProductName(String color, String productName);
+    Optional<Product> findProductByProductName(String productName);
 }

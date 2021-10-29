@@ -34,7 +34,7 @@ class UpdateCartItemServiceImplTest {
         product.setId(1l);
         product.setProductName("versace");
         product.setPrice(BigInteger.valueOf(5000));
-        product.setColors("red");
+        product.setColor("red");
         CartItem cartItem = new CartItem();
         cartItem.setQuantity(4);
         cartItem.setId(1l);

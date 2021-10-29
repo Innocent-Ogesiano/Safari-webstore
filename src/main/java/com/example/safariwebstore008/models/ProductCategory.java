@@ -1,15 +1,15 @@
 package com.example.safariwebstore008.models;
 
 import com.example.safariwebstore008.common.BaseClass;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -18,7 +18,4 @@ public class ProductCategory extends BaseClass {
 
     @NotNull(message = "Product category name is empty")
     private  String productCategoryName;
-
-    @OneToMany
-    private List<Product> product;
 }

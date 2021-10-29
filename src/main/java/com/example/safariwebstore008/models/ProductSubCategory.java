@@ -1,22 +1,25 @@
 package com.example.safariwebstore008.models;
 
 import com.example.safariwebstore008.common.BaseClass;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "product_subcategory_table")
 public class ProductSubCategory extends BaseClass {
+
     @NotNull(message="category name is empty")
-    private String categoryName;
+    private String subCategoryName;
     @ManyToOne
     private  ProductCategory category;
 }

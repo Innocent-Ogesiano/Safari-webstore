@@ -50,7 +50,7 @@ class ProductFilterServiceimplTest {
         product.setProductName("necklace");
         product.setPrice(BigInteger.valueOf(300));
         product.setDescription("for the young and old");
-        product.setColors("blue");
+        product.setColor("blue");
         List<Product> productList = new ArrayList<>();
         productList.add(product);
         final Page<Product> page = new PageImpl<>(productList);

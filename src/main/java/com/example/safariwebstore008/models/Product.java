@@ -28,5 +28,15 @@ public class Product extends BaseClass {
     @NotNull(message = "product price field is empty")
     private BigInteger price;
 
-    private String colors;
+    private String color;
+    private String size;
+
+
+    @ManyToOne
+    private ProductCategory category;
+
+    @ManyToOne
+    private ProductSubCategory subCategory;
+
+
 }
